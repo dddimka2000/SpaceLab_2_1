@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Admin</title>
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+    <div th:insert="admin/blocks/sidebarMenu :: sidebarMenu"></div>
+    <div class="content-wrapper">
+        <section class="content mx-auto" style=" width: 1000px;">
+            <h1 style="text-align: center;"> Список фильмов текущих</h1>
+            <div th:if="${listFilms.size() == 0}">
+                <p>Нет доступных фильмов.</p>
+            </div>
+            <div th:if="${listFilms.size() > 0}">
+                <div class="row">
+                    <div th:each="film: ${listFilms}">
+                        <div th:if="${film.isUpcoming==true}">
+                            <div class="col-lg-3" style="text-align: center">
+                                <br>
+                                <a th:href="'/admin/films/edit/'+${film.idFilm}">
+                                    <img th:src="${film.img}" width="140" height="190">
+                                </a>
+                                <br>
+                                <h5 th:text="${film.name}"></h5>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+            </div>
+            <div class="text-center">
+                <br>
+                <a th:href="@{/admin/films/newFilm}">
+                    <button type="submit" class="btn btn-primary" style="margin-bottom: 20px">Добавить</button>
+                </a>
+                <br>
+            </div>
+
+
+            <h1 style="text-align: center;"> Список фильмов которые покажут скоро
+            </h1>
+            <div class="row">
+                <div th:each="film: ${listFilms}">
+                    <div th:if="${film.isUpcoming==false}">
+                        <div class="col-lg-3" style="text-align: center">
+                            <br>
+                            <a th:href="'/admin/films/edit/'+${film.idFilm}">
+                                <img th:src="${film.img}" width="140" height="190">
+                            </a>
+                            <br>
+                            <h5 th:text="${film.name}"></h5>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+
+
+    </div>
+</div>
+
+</body>
+</html>

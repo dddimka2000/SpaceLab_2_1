@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AdminLTE 3 | Dashboard</title>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <div th:insert="admin/blocks/sidebarMenu :: sidebarMenu"></div>
+    <div class="content-wrapper">
+        <br>
+        <img th:src="@{/photos/Screenshot_6.png}" width="100%">
+        <br>
+        <div class="card" id="EmailCard">
+            <form enctype="multipart/form-data" method="post" th:action="@{/admin/mailSender/send}" name="formEmail">
+                <h1 style="text-align: center">E-mail</h1>
+                <div class="row" style="padding-left: 30px">
+                    <div class="col-3">
+                        <label>Выбрать email кому слать</label>
+                    </div>
+                    <div class="col-3">
+                        <input type="radio" id="radio1" name="choiceUsers" checked="true" value="true">
+                        <label for="radio1">Все пользователи на почту</label>
+                    </div>
+                    <div class="col-3">
+                        <input type="radio" id="radio2" name="choiceUsers" value="false">
+                        <label for="radio2">Выборочно</label>
+                    </div>
+                    <div class="col-3">
+                        <a th:href="@{/admin/mailSender/selectUsers}" class="note-style" style="position: center">Выбрать
+                            пользователей</a>
+                    </div>
+                </div>
+                <br>
+                <div class="row" style="padding-left: 30px">
+                    <div class="col-6">
+                        <label>Загрузить HTML-письмо </label>
+                        <input type="file" name="htmlLetter">
+                        <br>
+                        <label>Загружен файл: </label>
+                        <a th:href="${distributionEntities.get(distributionEntities.size()-1).path}">
+                            <label th:text="${distributionEntities.get(distributionEntities.size()-1).name}"></label>
+                        </a>
+                        <br>
+                        <label>Шаблон используемый в текущей рассылке: </label>
+                        <label id="template_used">?????</label>
+                        <br>
+                        <div class="row">
+                            <div class="col-5">
+                                <label>Кол-во писем: </label>
+                                <label th:text="${letters}"></label>
+                            </div>
+                            <div class="col-7">
+                                <label>Рассылка выполнена на: </label>
+                                <label><span id="percents"></span>%
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="card" style="text-align: center">
+                            <label>Список последних загруженных шаблонов</label>
+                            <div th:each="us:${distributionEntities}">
+                                <input type="radio" name="checkbox_distributionEntities" th:value="${us.id}">
+                                <a th:href="${us.path}">
+                                    <label th:text="${us.name}"></label>
+                                </a>
+                                <button name="deleteItem" th:value="${us.id}">Удалить</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+
+                <br>
+                <div style="text-align: center;">
+                    <button type="submit" class="dropdown-style cent" id="sendButton">Начать рассылку</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $(document).ready(function () {
+        $("#sendButton").click(function () {
+            $.ajax({
+                url: "/admin/mailSender/send",
+                type: "POST",
+                success: function () {
+                    updateEmailsCount();
+                }
+            });
+        });
+
+
+        function updateEmailsCount() {
+            $.ajax({
+                url: "/admin/mailSender/getPercents",
+                type: "GET",
+                success: function (count) {
+                    $("#percents").text(count);
+                }
+            });
+        }
+            setInterval(updateEmailsCount, 100);
+
+    });
+
+</script>
+
+
+</html>

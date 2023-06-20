@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" xmlns:tm="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+            crossorigin="anonymous"></script>
+</head>
+
+<body class="text-center">
+
+
+<main class="form-signin w-100 m-auto">
+    <div class="mb-3 me-3 bd-mode-toggle">
+        <img src="https://multiplex.ua/img/logo.svg" alt="Multiplex" title="Multiplex">
+    </div>
+    <form class="d-flex flex-column align-items-center" method="post" action="/process_login">
+        <div class="mb-2 me-2 bd-mode-toggle">
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="username" placeholder="username"
+                       name="username">
+                <label for="username">log</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="password" placeholder="password"
+                       name="password">
+                <label for="password">Password</label>
+            </div>
+
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+        </div>
+        <a href="/registration"><p class="mt-5 mb-3 text-body-secondary">Registration</p></a>
+        <div th:if="${param.error}" style="color: red">Error</div>
+    </form>
+</main>
+
+
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <title>Admin</title>
+
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <link rel="stylesheet" href="../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="../plugins/jqvmap/jqvmap.min.css">
+  <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.min.css">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <div th:insert="admin/blocks/sidebarMenu :: sidebarMenu"></div>
+  <div class="content-wrapper">
+    <section class="content mx-auto" style=" width: 1000px;">
+      <form id="edit-publicMain-form" method="post"
+            enctype="multipart/form-data">
+        <div class="form-group" style="text-align: right; padding-left: 33%; padding-top: 30px">
+          <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+            <input type="checkbox" class="custom-control-input" id="customSwitch3" name="switchValue"
+                   value="true" th:checked="${info.status}">
+            <label class="custom-control-label" for="customSwitch3"></label>
+          </div>
+        </div>
+        <h1 style="text-align: center;" th:text="'Редактировать &quot;'+${info.name}+'&quot;'"></h1>
+        <input type="date" name="selectedDate" th:value="${info.date}">
+        <div class="row" style="padding-top: 40px">
+          <div class="col-lg-2">
+            <br>
+            <label>Название</label>
+            <br>
+            <label>Описание</label>
+            <br>
+          </div>
+          <div class="col-lg-10">
+            <br>
+            <input name="name" th:value="${info.name}">
+            <br>
+            <textarea style="width: 533px;height:400px" name="description"
+                      th:text="${info.description}"></textarea>
+            <br>
+          </div>
+        </div>
+        <br>
+        <label>Главная картинка</label>
+        <br>
+        <img th:src="${info.img}" width="140" height="190">
+        <br>
+        <input type="file" name="mainImagine">
+        <br>
+        <label> Галерея картинок</label>
+        <br>
+        <div class="row text-center">
+          <div class="col-lg-2">
+            <div th:if="${info.img1!=null}">
+              <img th:src="${info.img1}" width="140" height="100">
+            </div>
+            <br>
+            <input type="file" name="images[]" multiple>
+          </div>
+          <div class="col-lg-2">
+            <div th:if="${info.img2!=null}">
+              <img th:src="${info.img2}" width="140" height="100">
+            </div>
+            <br>
+            <input type="file" name="images[]" multiple>
+          </div>
+          <div class="col-lg-2">
+            <div th:if="${info.img3!=null}">
+              <img th:src="${info.img3}" width="140" height="100">
+            </div>
+            <br>
+            <input type="file" name="images[]" multiple>
+          </div>
+          <div class="col-lg-2">
+            <div th:if="${info.img4!=null}">
+              <img th:src="${info.img4}" width="140" height="100">
+            </div>
+            <br>
+            <input type="file" name="images[]" multiple>
+          </div>
+          <div class="col-lg-2">
+            <div th:if="${info.img5!=null}">
+              <img th:src="${info.img5}" width="140" height="100">
+            </div>
+            <br>
+            <input type="file" name="images[]" multiple>
+          </div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+          <div class="col-lg-2 col-md-2">
+            <label for="linkTrailer">Ссылка</label>
+          </div>
+          <div class="col-lg-8 col-md-8">
+            <input id="linkTrailer" name="link" style="width: 100%; height: 30px;">
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-lg-2">
+            <label> Seo-блок</label>
+          </div>
+          <div class="col-lg-8">
+            <br>
+            <label>URL:</label>
+            <input style="width: 533px;height:23px" name="url" th:value="${info.url}">
+            <br>
+            <label>Title:</label>
+            <input style="width: 533px;height:23px" name="title" th:value="${info.title}">
+            <br>
+            <label>Keywords:</label>
+            <input style="width: 533px;height:23px" name="keywords"th:value="${info.keywords}">
+            <br>
+            <label>Description:</label>
+            <textarea style="width: 533px;height:400px" name="descriptionSeo"th:text="${info.descriptionSeo}"></textarea>
+            <br>
+          </div>
+          <div class="col-lg-2"></div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary" form="edit-publicMain-form">Сохранить</button>
+        </div>
+      </form>
+
+
+    </section>
+
+  </div>
+</div>
+
+</body>
+</html>

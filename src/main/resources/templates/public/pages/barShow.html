@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<div style="text-align: center">
+    <div th:insert="public/blocks/search :: search" style="padding-top: 20px;"></div>
+    <div th:insert="public/blocks/navigate :: navigate"></div>
+    <br>
+    <img th:src="${info.img}" width="100%" height="327">
+    <br>
+    <h1 th:text="${info.name}"></h1>
+    <br>
+</div>
+
+<div class="row">
+    <div class="col-10">
+        <text th:text="${info.description}">
+        </text>
+        <br>
+        <div class="row">
+            <div class="col-3" th:each="us:${imgList}" style="padding-left: 40px">
+                <img th:src="${us}" height="175" width="280">
+            </div>
+        </div>
+
+        <br>
+        <h1 style="text-align: center">Меню</h1>
+
+        <br>
+        <g transform="matrix(1 0 0 1 17 985)" class="stencil">
+            <svg width="851" height="192" x="0.5" y="0.5" class="" style="opacity: 1;">
+                <defs></defs>
+                <foreignObject width="851" height="192">
+                    <table style="background-color: transparent; width: 100%; height: 100%; border: 1px solid rgb(0, 0, 0);">
+                        <tbody>
+                        <tr style="background: rgb(204, 204, 204);">
+                            <td style="color: rgb(0, 0, 0); font-weight: 400; font-style: normal; font-size: 14px; text-align: left; font-family: Helvetica, Arial, sans-serif; letter-spacing: 0px; text-decoration: none; vertical-align: middle; line-height: 1; padding: 5px; border-bottom: 1px solid rgb(0, 0, 0);">
+                                <svg height="7" width="9" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" fill="#000000"></path>
+                                </svg>
+                                <p>Head 1</p></td>
+                            <td style="color: rgb(0, 0, 0); font-weight: 400; font-style: normal; font-size: 14px; text-align: left; font-family: Helvetica, Arial, sans-serif; letter-spacing: 0px; text-decoration: none; vertical-align: middle; line-height: 1; padding: 5px; border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0);">
+                                <svg height="7" width="9" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" fill="#000000"></path>
+                                </svg>
+                                <p>Head 2</p></td>
+                            <td colspan="2"
+                                style="color: rgb(0, 0, 0); font-weight: 400; font-style: normal; font-size: 14px; text-align: left; font-family: Helvetica, Arial, sans-serif; letter-spacing: 0px; text-decoration: none; vertical-align: middle; line-height: 1; padding: 5px; border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0);">
+                                <svg height="7" width="9" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" fill="#000000"></path>
+                                </svg>
+                                <p>Head 3</p></td>
+                        </tr>
+                        <tr style="background: rgb(255, 255, 255);">
+                            <td style="color: rgb(0, 0, 0); font-weight: 400; font-style: normal; font-size: 14px; text-align: left; font-family: Helvetica, Arial, sans-serif; letter-spacing: 0px; text-decoration: none; vertical-align: middle; line-height: 1; padding: 5px; border-bottom: 1px solid rgb(0, 0, 0);">
+                                <p>Cell 1</p></td>
+                            <td style="color: rgb(0, 0, 0); font-weight: 400; font-style: normal; font-size: 14px; text-align: left; font-family: Helvetica, Arial, sans-serif; letter-spacing: 0px; text-decoration: none; vertical-align: middle; line-height: 1; padding: 5px; border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0);">
+                                <p>Cell 2</p></td>
+                            <td style="color: rgb(0, 0, 0); font-weight: 400; font-style: normal; font-size: 14px; text-align: left; font-family: Helvetica, Arial, sans-serif; letter-spacing: 0px; text-decoration: none; vertical-align: middle; line-height: 1; padding: 5px; border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0);">
+                                <p>Cell 3</p></td>
+                            <td style="color: rgb(0, 0, 0); font-weight: 400; font-style: normal; font-size: 14px; text-align: left; font-family: Helvetica, Arial, sans-serif; letter-spacing: 0px; text-decoration: none; vertical-align: middle; line-height: 1; padding: 5px; border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0);">
+                                <div style="text-align: center;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" x="0" y="0">
+                                        <path fill="#FFFFFF" stroke="#000000" stroke-width="2"
+                                              stroke-linecap="round"
+                                              d="M15,13 c0,1.104-0.896,2-2,2H3c-1.104,0-2-0.896-2-2V3c0-1.104,0.896-2,2-2h10c1.104,0,2,0.896,2,2V13z"></path>
+                                    </svg>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr style="background: rgb(236, 236, 236);">
+                            <td style="color: rgb(0, 0, 0); font-weight: 400; font-style: normal; font-size: 14px; text-align: left; font-family: Helvetica, Arial, sans-serif; letter-spacing: 0px; text-decoration: none; vertical-align: middle; line-height: 1; padding: 5px; border-bottom: 1px solid rgb(0, 0, 0);">
+                                <p>Cell 4</p></td>
+                            <td style="color: rgb(0, 0, 0); font-weight: 400; font-style: normal; font-size: 14px; text-align: left; font-family: Helvetica, Arial, sans-serif; letter-spacing: 0px; text-decoration: none; vertical-align: middle; line-height: 1; padding: 5px; border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0);">
+                                <p>Cell 5</p></td>
+                            <td style="color: rgb(0, 0, 0); font-weight: 400; font-style: normal; font-size: 14px; text-align: left; font-family: Helvetica, Arial, sans-serif; letter-spacing: 0px; text-decoration: none; vertical-align: middle; line-height: 1; padding: 5px; border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0);">
+                                <p>Cell 6</p></td>
+                            <td style="color: rgb(0, 0, 0); font-weight: 400; font-style: normal; font-size: 14px; text-align: left; font-family: Helvetica, Arial, sans-serif; letter-spacing: 0px; text-decoration: none; vertical-align: middle; line-height: 1; padding: 5px; border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0);">
+                                <div style="text-align: center;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" x="0" y="0">
+                                        <path fill="#FFFFFF" stroke="#000000" stroke-width="2"
+                                              stroke-linecap="round"
+                                              d="M15,13 c0,1.104-0.896,2-2,2H3c-1.104,0-2-0.896-2-2V3c0-1.104,0.896-2,2-2h10c1.104,0,2,0.896,2,2V13z"></path>
+                                        <path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" d="M5,8.565l2.041,2.63l4.254-6.028"></path>
+                                    </svg>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr style="background: rgb(255, 255, 255);">
+                            <td style="color: rgb(0, 0, 0); font-weight: 400; font-style: normal; font-size: 14px; text-align: left; font-family: Helvetica, Arial, sans-serif; letter-spacing: 0px; text-decoration: none; vertical-align: middle; line-height: 1; padding: 5px; border-bottom: 1px solid rgb(0, 0, 0);">
+                                <p>Cell 7</p></td>
+                            <td style="color: rgb(0, 0, 0); font-weight: 400; font-style: normal; font-size: 14px; text-align: left; font-family: Helvetica, Arial, sans-serif; letter-spacing: 0px; text-decoration: none; vertical-align: middle; line-height: 1; padding: 5px; border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0);">
+                                <p>Cell 8</p></td>
+                            <td style="color: rgb(0, 0, 0); font-weight: 400; font-style: normal; font-size: 14px; text-align: left; font-family: Helvetica, Arial, sans-serif; letter-spacing: 0px; text-decoration: none; vertical-align: middle; line-height: 1; padding: 5px; border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0);">
+                                <p>Cell 9</p></td>
+                            <td style="color: rgb(0, 0, 0); font-weight: 400; font-style: normal; font-size: 14px; text-align: left; font-family: Helvetica, Arial, sans-serif; letter-spacing: 0px; text-decoration: none; vertical-align: middle; line-height: 1; padding: 5px; border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0);">
+                                <div style="text-align: center;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" x="0" y="0">
+                                        <path fill="#FFFFFF" stroke="#000000" stroke-width="2"
+                                              stroke-linecap="round"
+                                              d="M9,1c4.418,0,8,3.582,8,8c0,4.419-3.582,8-8,8 s-8-3.581-8-8C1,4.582,4.582,1,9,1z"></path>
+                                    </svg>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr style="background: rgb(236, 236, 236);">
+                            <td style="color: rgb(0, 0, 0); font-weight: 400; font-style: normal; font-size: 14px; text-align: left; font-family: Helvetica, Arial, sans-serif; letter-spacing: 0px; text-decoration: none; vertical-align: middle; line-height: 1; padding: 5px; border-bottom: 1px solid rgb(0, 0, 0);">
+                                <p>Cell 10</p></td>
+                            <td style="color: rgb(0, 0, 0); font-weight: 400; font-style: normal; font-size: 14px; text-align: left; font-family: Helvetica, Arial, sans-serif; letter-spacing: 0px; text-decoration: none; vertical-align: middle; line-height: 1; padding: 5px; border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0);">
+                                <p>Cell 11</p></td>
+                            <td style="color: rgb(0, 0, 0); font-weight: 400; font-style: normal; font-size: 14px; text-align: left; font-family: Helvetica, Arial, sans-serif; letter-spacing: 0px; text-decoration: none; vertical-align: middle; line-height: 1; padding: 5px; border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0);">
+                                <p>Cell 12</p></td>
+                            <td style="color: rgb(0, 0, 0); font-weight: 400; font-style: normal; font-size: 14px; text-align: left; font-family: Helvetica, Arial, sans-serif; letter-spacing: 0px; text-decoration: none; vertical-align: middle; line-height: 1; padding: 5px; border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0);">
+                                <div style="text-align: center;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" x="0" y="0">
+                                        <path fill="#FFFFFF" stroke="#000000" stroke-width="2"
+                                              stroke-linecap="round"
+                                              d="M9,1c4.418,0,8,3.582,8,8c0,4.419-3.582,8-8,8 s-8-3.581-8-8C1,4.582,4.582,1,9,1z"></path>
+                                        <path fill="#000000"
+                                              d="M9,6.5c1.381,0,2.5,1.119,2.5,2.5s-1.119,2.5-2.5,2.5S6.5,10.381,6.5,9S7.619,6.5,9,6.5z"></path>
+                                    </svg>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </foreignObject>
+            </svg>
+        </g>
+
+        <br>
+        <br>
+    </div>
+    <div class="col-2">
+        <g transform="matrix(1 0 0 1 942 611)" class="stencil">
+            <svg width="184.35467980295567" height="289" x="0" y="0" class="" style="opacity: 1;">
+                <defs></defs>
+                <path d="M 0 0 L 184.35467980295567 0 184.35467980295567 289 0 289 0 0 M 0 0 L 184.35467980295567 289 M 0 289 L 184.35467980295567 0 Z"
+                      stroke-width="2" stroke="#000000" stroke-dasharray="none" stroke-dashoffset="none"
+                      fill="#ffffff" fill-rule="evenOdd"></path>
+            </svg>
+        </g>
+        <br>
+        <br>
+        <g transform="matrix(1 0 0 1 937 922)" class="stencil">
+            <svg name="image" width="186.41121495327104" height="192" x="0" y="0" class="" style="opacity: 1;">
+                <defs>
+                    <clipPath id="cp_a770e30ca-0a5a5f1a">
+                        <path d="M0 0 L186.41121495327104 0 C186.41121495327104 0 186.41121495327104 0 186.41121495327104 0 L186.41121495327104 192 C186.41121495327104 192 186.41121495327104 192 186.41121495327104 192 L0 192 C0 192 0 192 0 192 L0 0 C0 0 0 0 0 0 Z"></path>
+                    </clipPath>
+                </defs>
+                <svg x="0" y="0" width="186.41121495327104" height="192" clip-path="url(#cp_a770e30ca-0a5a5f1a)"
+                     style="overflow: hidden;">
+                    <image x="0" y="0" height="192" width="186.41121495327104" preserveAspectRatio="none"
+                           xlink:href="https://images.moqups.com/repo/Zc5eWEcF/images/auqOlDIJ.png?Expires=1687292733&amp;Key-Pair-Id=K1TPUF1X6HKIYU&amp;Signature=aw07z3VGlcIW36I7tcUG1v5r6iiZnOtWqR6OMKlYG9Fjye7KvBz8iRx3aUi6TyCBgYs1MZXIviw1QhNwcf2JUylxj3IhHWot54LINrgTOTh4sg2KxnChzfBf9D81mC2YChlWb29kxFsBChpzvAdkbcSWqct2cqDwGhyNy1dJnmBKxvnEf801BnZkl~B7w-1050I14mlgHNfu8QfeItrS2iAziedsZoeTxTGLcdPPtXLG77w8mDhBZdwmpiCvRGCpn4JZbWazOi5CaA37z1B4sc1Rkr2QQUauH8uFzS8AbcJbtHxUOoSv5gl4Ugxd~htcenIblHYw9WZOGlB8g32hcA__"></image>
+                </svg>
+                <path d="M0 0 L186.41121495327104 0 C186.41121495327104 0 186.41121495327104 0 186.41121495327104 0 L186.41121495327104 192 C186.41121495327104 192 186.41121495327104 192 186.41121495327104 192 L0 192 C0 192 0 192 0 192 L0 0 C0 0 0 0 0 0 Z"
+                      stroke-width="0" stroke="none" stroke-dasharray="none" fill="transparent"></path>
+                <path d="M0 0 L186.41121495327104 0 C186.41121495327104 0 186.41121495327104 0 186.41121495327104 0 L186.41121495327104 192 C186.41121495327104 192 186.41121495327104 192 186.41121495327104 192 L0 192 C0 192 0 192 0 192 L0 0 C0 0 0 0 0 0 Z"
+                      stroke-width="0" stroke="none" stroke-dasharray="none" fill="none"></path>
+            </svg>
+        </g>
+        <br>
+        <br>
+        <g transform="matrix(1 0 0 1 937 1149)" class="stencil">
+            <svg name="image" width="194.2876712328767" height="198" x="0" y="0" class="" style="opacity: 1;">
+                <defs>
+                    <clipPath id="cp_a770e30ca-575ad865">
+                        <path d="M0 0 L194.2876712328767 0 C194.2876712328767 0 194.2876712328767 0 194.2876712328767 0 L194.2876712328767 198 C194.2876712328767 198 194.2876712328767 198 194.2876712328767 198 L0 198 C0 198 0 198 0 198 L0 0 C0 0 0 0 0 0 Z"></path>
+                    </clipPath>
+                </defs>
+                <svg x="0" y="0" width="194.2876712328767" height="198" clip-path="url(#cp_a770e30ca-575ad865)"
+                     style="overflow: hidden;">
+                    <image x="0" y="0" height="198" width="194.2876712328767" preserveAspectRatio="none"
+                           xlink:href="https://images.moqups.com/repo/Zc5eWEcF/images/cKRu6Swc.png?Expires=1687292733&amp;Key-Pair-Id=K1TPUF1X6HKIYU&amp;Signature=NPqvSQmJ1d~rrI1bUQ6rTRElRDUvvHWmfVEY-PtOzpl~XAP0a-UmM-5mxfnU0rkcd~MCW1KBO4D-9~tw13lfh4LE7lbqNUZR3h~IXhdcDWMfVeXV-QpSQ30912HL8-Ux-5T9o-KC9sj3TnP~~EZJmXSPUM2Eq069~2JpyGml846baKlXbiZpjj1BDyqzZgMWCNRmadZ1inRD4h0uudI3R1xt1LRgxyX4ZDHid2lUEyAYdwMefSWkvkilbXESLhhmsDMLgsPp~Vfm2DlxoDxi5KBdpcPp7pLJDV8Jttzf4gtijbsB~322L9idZ60LPF01JUtATSO2LuKzW59j2-xNSg__"></image>
+                </svg>
+                <path d="M0 0 L194.2876712328767 0 C194.2876712328767 0 194.2876712328767 0 194.2876712328767 0 L194.2876712328767 198 C194.2876712328767 198 194.2876712328767 198 194.2876712328767 198 L0 198 C0 198 0 198 0 198 L0 0 C0 0 0 0 0 0 Z"
+                      stroke-width="0" stroke="none" stroke-dasharray="none" fill="transparent"></path>
+                <path d="M0 0 L194.2876712328767 0 C194.2876712328767 0 194.2876712328767 0 194.2876712328767 0 L194.2876712328767 198 C194.2876712328767 198 194.2876712328767 198 194.2876712328767 198 L0 198 C0 198 0 198 0 198 L0 0 C0 0 0 0 0 0 Z"
+                      stroke-width="0" stroke="none" stroke-dasharray="none" fill="none"></path>
+            </svg>
+        </g>
+    </div>
+</div>
+
+<div th:insert="public/blocks/endPage :: endPage" style="padding-top: 30px"></div>
+
+</body>
+</html>

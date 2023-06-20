@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Admin</title>
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/jqvmap/jqvmap.min.css">
+    <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.min.css">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+    <div th:insert="admin/blocks/sidebarMenu :: sidebarMenu"></div>
+    <div class="content-wrapper">
+        <section class="content mx-auto" style=" width: 1000px;">
+            <h1 class="mx-auto">Контакты</h1>
+            <form id="edit-publicMain-form" method="post" enctype="multipart/form-data">
+                <div th:each="us:${contact_cinemas}">
+                    <input type="hidden" name="id" th:value="${us.idCinema}"/>
+                    <br>
+                    <br>
+                    <div class="card">
+                        <div class="row" style="padding-top: 40px">
+                            <div class="col-lg-2">
+                                <label id="name">Название кинотеатра</label>
+                                <label id="address">Адресс</label>
+                            </div>
+                            <div class="col-lg-7">
+                                <input name="name" for="name" th:value="${us.name}">
+                                <br>
+                                <input style="width: 533px;height:40px" name="address" for="address"
+                                       th:value="${us.address}"></input>
+                                <br>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+
+                                        <input type="checkbox" class="custom-control-input" name="switchValue"
+                                               th:id="'form-group' + ${us.idCinema}" th:checked="${us.status}" th:value="${us.idCinema}"/>
+
+                                        <label class="custom-control-label"
+                                               th:for="'form-group'+${us.idCinema}"></label>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top: 40px">
+                            <div class="col-lg-2">
+                                <label id="map_coordinates">Координаты для карты</label>
+                            </div>
+                            <div class="col-lg-2">
+                                <input style="width: 533px;height:40px" name="map_coordinates"
+                                       for="map_coordinates" th:value="${us.mapCoordinates}"></input>
+
+                            </div>
+                            <div class="col-lg-8">
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div th:if="${us.logo!=null}">
+                            <img th:src="${us.logo}" width="100px" height="100px">
+                        </div>
+                        <br>
+                        <label>Лого</label>
+                        <br>
+                        <input type="file" name="logo" multiple>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+
+                    <button class="dark-mode" type="submit" name="createButton" value="true">Добавить новый кинотеатр
+                    </button>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label> Seo-блок</label>
+                    </div>
+                    <div class="col-lg-8">
+                        <br>
+                        <label>URL:</label>
+                        <input style="width: 533px;height:23px" name="url" th:value="${page.url}">
+                        <br>
+                        <label>Title:</label>
+                        <input style="width: 533px;height:23px" name="title" th:value="${page.getTitle()}">
+                        <br>
+                        <label>Keywords:</label>
+                        <input style="width: 533px;height:23px" name="keywords" th:value="${page.getKeywords()}">
+                        <br>
+                        <label>Description:</label>
+                        <textarea style="width: 533px;height:400px" name="description"
+                                  th:text="${page.getDescription()}"></textarea>
+                        <br>
+                    </div>
+                    <div class="col-lg-2"></div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button class="dark-mode mx-auto" type="submit">Сохранить</button>
+                </div>
+            </form>
+
+
+        </section>
+
+    </div>
+</div>
+
+</body>
+</html>

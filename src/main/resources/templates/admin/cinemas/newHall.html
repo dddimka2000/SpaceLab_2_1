@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Admin</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" rel="stylesheet">
+    <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+    <link th:href="@{/admin/plugins/fontawesome-free/css/all.min.css}" rel="stylesheet">
+    <link th:href="@{/admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css}" rel="stylesheet">
+    <link th:href="@{/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/admin/plugins/jqvmap/jqvmap.min.css}" rel="stylesheet">
+    <link th:href="@{/admin/dist/css/adminlte.min.css}" rel="stylesheet">
+    <link th:href="@{/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css}" rel="stylesheet">
+    <link th:href="@{/admin/plugins/daterangepicker/daterangepicker.css}" rel="stylesheet">
+    <link th:href="@{/admin/plugins/summernote/summernote-bs4.min.css}" rel="stylesheet">
+
+
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+    <div th:insert="admin/blocks/sidebarMenu :: sidebarMenu"></div>
+    <div class="content-wrapper">
+        <section class="content mx-auto" style=" width: 1000px;">
+            <h1 style="text-align: center;"> Создание нового зала</h1>
+            <form id="edit-publicMain-form" method="post" action="/admin/cinemas/newCinema/newHall"
+                  enctype="multipart/form-data">
+                <div class="row" style="padding-top: 40px">
+                    <div class="col-lg-2">
+                        <br>
+                        <label for="nameHall">Название зала</label>
+                        <br>
+                        <label for="description">Описание</label>
+                        <br>
+                    </div>
+                    <div class="col-lg-4">
+                        <br>
+                        <input id="nameHall" name="nameHall">
+                        <br>
+                        <textarea style="width: 100%; height: 400px" id="description" name="descriptionHall"></textarea>
+                        <br>
+                    </div>
+                    <div class="col-lg-6">
+                    </div>
+                </div>
+                <label>Схема зала</label>
+                <br>
+                <input type="file" name="schema_hall">
+                <br>
+                <label>Верхний банер</label>
+                <br>
+                <input type="file" name="mainImagine">
+                <br>
+
+                <label> Галерея картинок</label>
+                <br>
+                <input type="file" name="images[]" multiple>
+                <input type="file" name="images[]" multiple>
+                <input type="file" name="images[]" multiple>
+                <input type="file" name="images[]" multiple>
+                <input type="file" name="images[]" multiple>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label> Seo-блок</label>
+                    </div>
+                    <div class="col-lg-8">
+                        <br>
+                        <label>URL:</label>
+                        <input style="width: 533px;height:23px" name="url">
+                        <br>
+                        <label>Title:</label>
+                        <input style="width: 533px;height:23px" name="title">
+                        <br>
+                        <label>Keywords:</label>
+                        <input style="width: 533px;height:23px" name="keywords">
+                        <br>
+                        <label>Description:</label>
+                        <textarea style="width: 533px;height:400px" name="descriptionSeo"></textarea>
+                        <br>
+                    </div>
+                    <div class="col-lg-2"></div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary" form="edit-publicMain-form">Сохранить</button>
+                </div>
+            </form>
+
+
+        </section>
+
+    </div>
+</div>
+
+</body>
+</html>

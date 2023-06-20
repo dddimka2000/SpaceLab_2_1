@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Admin</title>
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/jqvmap/jqvmap.min.css">
+    <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.min.css">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+    <div th:insert="admin/blocks/sidebarMenu :: sidebarMenu"></div>
+    <div class="content-wrapper">
+        <section class="content mx-auto" style=" width: 1000px;">
+            <h1 style="text-align: center;"> Создание нового Кинотеатра</h1>
+            <form id="edit-publicMain-form" method="post" action="/admin/cinemas/newCinema"
+                  enctype="multipart/form-data">
+                <div class="row" style="padding-top: 40px">
+                    <div class="col-lg-2">
+                        <br>
+                        <label for="nameCinema">Название кинотеатра</label>
+                        <br>
+                        <label for="description">Описание</label>
+                        <br>
+                        <label for="conditions">Условия</label>
+                        <br>
+                    </div>
+                    <div class="col-lg-4">
+                        <br>
+                        <input id="nameCinema" name="nameCinema">
+                        <br>
+                        <textarea style="width: 100%; height: 400px" id="description" name="description"></textarea>
+                        <br>
+                        <textarea style="width: 100%; height: 400px; margin-top: 20px" id="conditions"
+                                  name="conditions"></textarea>
+                        <br>
+                    </div>
+                    <div class="col-lg-6">
+                    </div>
+                </div>
+                <label>Логотип</label>
+                <br>
+                <input type="file" name="logo">
+                <br>
+                <label> Фото верхнего баннера</label>
+                <br>
+                <input type="file" name="mainImagine">
+                <br>
+
+                <label> Галерея картинок</label>
+                <br>
+                <input type="file" name="images[]" multiple>
+                <input type="file" name="images[]" multiple>
+                <input type="file" name="images[]" multiple>
+                <input type="file" name="images[]" multiple>
+                <input type="file" name="images[]" multiple>
+                <br>
+                <br>
+                <h1 style="text-align: center;"> Список Залов</h1>
+                <table class="hall-table">
+                    <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Дата создания</th>
+                    </tr>
+                    </thead>
+                    <tbody th:if="${hallList != null}">
+                    <tr th:each="hall : ${hallList}">
+                        <td th:text="${hall.name}"></td>
+                        <td th:text="${hall.date}"></td>
+                        <td><a th:href="'/admin/cinemas/newCinema/edit/'+${hall.idHall}" class="btn btn-warning">Edit</a></td>
+                        <td><button class="btn btn-warning" name="deleteHall" th:value="${hall.idHall}">Delete</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+                <a th:href="@{/admin/cinemas/newCinema/newHall}" class="btn btn-primary center-text">Добавить зал</a>
+
+
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label> Seo-блок</label>
+                    </div>
+                    <div class="col-lg-8">
+                        <br>
+                        <label>URL:</label>
+                        <input style="width: 533px;height:23px" name="url">
+                        <br>
+                        <label>Title:</label>
+                        <input style="width: 533px;height:23px" name="title">
+                        <br>
+                        <label>Keywords:</label>
+                        <input style="width: 533px;height:23px" name="keywords">
+                        <br>
+                        <label>Description:</label>
+                        <textarea style="width: 533px;height:400px" name="descriptionSeo"></textarea>
+                        <br>
+                    </div>
+                    <div class="col-lg-2"></div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary" form="edit-publicMain-form">Сохранить</button>
+                </div>
+            </form>
+
+
+        </section>
+
+    </div>
+</div>
+
+</body>
+</html>

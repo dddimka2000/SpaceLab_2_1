@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<div style="text-align: center">
+    <div th:insert="public/blocks/search :: search" style="padding-top: 20px;"></div>
+    <div th:insert="public/blocks/navigate :: navigate"></div>
+    <br>
+    <img th:src="${info.img}" width="100%" height="327">
+    <br>
+    <h1 th:text="${info.name}"></h1>
+    <br>
+    <div class="row">
+        <div class="col-10">
+            <text th:text="${info.description}">
+            </text>
+            <br>
+            <h1>ФОТОГАЛЕРЕЯ</h1>
+            <br>
+
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" height="327"
+                 width="440.0585106382979">
+                <div class="carousel-inner">
+                    <div th:each="us,i:${carouselItems}">
+                        <div th:if="${i.index==0}">
+                            <div class="carousel-item active">
+                                <img th:src="${us}" class="d-block w-100" style="height: 600px">
+                            </div>
+                        </div>
+                        <div th:unless="${i.index==0}">
+                            <div class="carousel-item">
+                                <img th:src="${us}"
+                                     class="d-block w-100" style="height: 600px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                        data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                        data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        <div class="col-2">
+            <g transform="matrix(1 0 0 1 942 611)" class="stencil">
+                <svg width="184.35467980295567" height="289" x="0" y="0" class="" style="opacity: 1;">
+                    <defs></defs>
+                    <path d="M 0 0 L 184.35467980295567 0 184.35467980295567 289 0 289 0 0 M 0 0 L 184.35467980295567 289 M 0 289 L 184.35467980295567 0 Z"
+                          stroke-width="2" stroke="#000000" stroke-dasharray="none" stroke-dashoffset="none"
+                          fill="#ffffff" fill-rule="evenOdd"></path>
+                </svg>
+            </g>
+            <br>
+            <br>
+            <g transform="matrix(1 0 0 1 937 922)" class="stencil">
+                <svg name="image" width="186.41121495327104" height="192" x="0" y="0" class="" style="opacity: 1;">
+                    <defs>
+                        <clipPath id="cp_a770e30ca-0a5a5f1a">
+                            <path d="M0 0 L186.41121495327104 0 C186.41121495327104 0 186.41121495327104 0 186.41121495327104 0 L186.41121495327104 192 C186.41121495327104 192 186.41121495327104 192 186.41121495327104 192 L0 192 C0 192 0 192 0 192 L0 0 C0 0 0 0 0 0 Z"></path>
+                        </clipPath>
+                    </defs>
+                    <svg x="0" y="0" width="186.41121495327104" height="192" clip-path="url(#cp_a770e30ca-0a5a5f1a)"
+                         style="overflow: hidden;">
+                        <image x="0" y="0" height="192" width="186.41121495327104" preserveAspectRatio="none"
+                               xlink:href="https://images.moqups.com/repo/Zc5eWEcF/images/auqOlDIJ.png?Expires=1687292733&amp;Key-Pair-Id=K1TPUF1X6HKIYU&amp;Signature=aw07z3VGlcIW36I7tcUG1v5r6iiZnOtWqR6OMKlYG9Fjye7KvBz8iRx3aUi6TyCBgYs1MZXIviw1QhNwcf2JUylxj3IhHWot54LINrgTOTh4sg2KxnChzfBf9D81mC2YChlWb29kxFsBChpzvAdkbcSWqct2cqDwGhyNy1dJnmBKxvnEf801BnZkl~B7w-1050I14mlgHNfu8QfeItrS2iAziedsZoeTxTGLcdPPtXLG77w8mDhBZdwmpiCvRGCpn4JZbWazOi5CaA37z1B4sc1Rkr2QQUauH8uFzS8AbcJbtHxUOoSv5gl4Ugxd~htcenIblHYw9WZOGlB8g32hcA__"></image>
+                    </svg>
+                    <path d="M0 0 L186.41121495327104 0 C186.41121495327104 0 186.41121495327104 0 186.41121495327104 0 L186.41121495327104 192 C186.41121495327104 192 186.41121495327104 192 186.41121495327104 192 L0 192 C0 192 0 192 0 192 L0 0 C0 0 0 0 0 0 Z"
+                          stroke-width="0" stroke="none" stroke-dasharray="none" fill="transparent"></path>
+                    <path d="M0 0 L186.41121495327104 0 C186.41121495327104 0 186.41121495327104 0 186.41121495327104 0 L186.41121495327104 192 C186.41121495327104 192 186.41121495327104 192 186.41121495327104 192 L0 192 C0 192 0 192 0 192 L0 0 C0 0 0 0 0 0 Z"
+                          stroke-width="0" stroke="none" stroke-dasharray="none" fill="none"></path>
+                </svg>
+            </g>
+            <br>
+            <br>
+            <g transform="matrix(1 0 0 1 937 1149)" class="stencil">
+                <svg name="image" width="194.2876712328767" height="198" x="0" y="0" class="" style="opacity: 1;">
+                    <defs>
+                        <clipPath id="cp_a770e30ca-575ad865">
+                            <path d="M0 0 L194.2876712328767 0 C194.2876712328767 0 194.2876712328767 0 194.2876712328767 0 L194.2876712328767 198 C194.2876712328767 198 194.2876712328767 198 194.2876712328767 198 L0 198 C0 198 0 198 0 198 L0 0 C0 0 0 0 0 0 Z"></path>
+                        </clipPath>
+                    </defs>
+                    <svg x="0" y="0" width="194.2876712328767" height="198" clip-path="url(#cp_a770e30ca-575ad865)"
+                         style="overflow: hidden;">
+                        <image x="0" y="0" height="198" width="194.2876712328767" preserveAspectRatio="none"
+                               xlink:href="https://images.moqups.com/repo/Zc5eWEcF/images/cKRu6Swc.png?Expires=1687292733&amp;Key-Pair-Id=K1TPUF1X6HKIYU&amp;Signature=NPqvSQmJ1d~rrI1bUQ6rTRElRDUvvHWmfVEY-PtOzpl~XAP0a-UmM-5mxfnU0rkcd~MCW1KBO4D-9~tw13lfh4LE7lbqNUZR3h~IXhdcDWMfVeXV-QpSQ30912HL8-Ux-5T9o-KC9sj3TnP~~EZJmXSPUM2Eq069~2JpyGml846baKlXbiZpjj1BDyqzZgMWCNRmadZ1inRD4h0uudI3R1xt1LRgxyX4ZDHid2lUEyAYdwMefSWkvkilbXESLhhmsDMLgsPp~Vfm2DlxoDxi5KBdpcPp7pLJDV8Jttzf4gtijbsB~322L9idZ60LPF01JUtATSO2LuKzW59j2-xNSg__"></image>
+                    </svg>
+                    <path d="M0 0 L194.2876712328767 0 C194.2876712328767 0 194.2876712328767 0 194.2876712328767 0 L194.2876712328767 198 C194.2876712328767 198 194.2876712328767 198 194.2876712328767 198 L0 198 C0 198 0 198 0 198 L0 0 C0 0 0 0 0 0 Z"
+                          stroke-width="0" stroke="none" stroke-dasharray="none" fill="transparent"></path>
+                    <path d="M0 0 L194.2876712328767 0 C194.2876712328767 0 194.2876712328767 0 194.2876712328767 0 L194.2876712328767 198 C194.2876712328767 198 194.2876712328767 198 194.2876712328767 198 L0 198 C0 198 0 198 0 198 L0 0 C0 0 0 0 0 0 Z"
+                          stroke-width="0" stroke="none" stroke-dasharray="none" fill="none"></path>
+                </svg>
+            </g>
+        </div>
+    </div>
+
+</div>
+<div th:insert="public/blocks/endPage :: endPage" style="padding-top: 30px"></div>
+
+</body>
+</html>

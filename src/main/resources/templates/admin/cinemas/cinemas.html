@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Admin</title>
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+    <div th:insert="admin/blocks/sidebarMenu :: sidebarMenu"></div>
+    <div class="content-wrapper">
+        <section class="content mx-auto" style=" width: 1000px;">
+            <h1 style="text-align: center;"> Кинотеатры</h1>
+            <div th:if="${listCinema.size() == 0}">
+                <p>Нет кинотеатров</p>
+            </div>
+            <div th:if="${listCinema.size() > 0}">
+                <div class="row">
+                    <div th:each="cinema: ${listCinema}">
+                        <div class="col-lg-3" style="text-align: center">
+                            <br>
+                            <a th:href="'/admin/cinemas/edit/'+${cinema.idCinema}">
+                                <img th:src="${cinema.logoPath}" width="240" height="150">
+                            </a>
+                            <form enctype="multipart/form-data" th:action="'/admin/cinemas/'+${cinema.idCinema}+'/delete'" method="post">
+                            <button style="position: absolute; top: 9px; left: 230px; background: transparent; border: none;"  type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="24"
+                                     fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16"
+                                     color="black">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                                </svg>
+                            </button>
+                            </form>
+                            <br>
+                            <h5 th:text="${cinema.name}"></h5>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+            </div>
+            <div class="text-center">
+                <br>
+                <a th:href="@{/admin/cinemas/newCinema}">
+                    <button type="submit" class="btn btn-primary" style="margin-bottom: 20px">Добавить</button>
+                </a>
+                <br>
+            </div>
+
+
+        </section>
+
+
+    </div>
+</div>
+
+</body>
+</html>

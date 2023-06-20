@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Admin</title>
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/jqvmap/jqvmap.min.css">
+    <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.min.css">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+    <div th:insert="admin/blocks/sidebarMenu :: sidebarMenu"></div>
+    <div class="content-wrapper">
+        <section class="content mx-auto" style=" width: 1000px;">
+            <form id="edit-publicMain-form" method="post" action="/admin/news/createNews"
+                  enctype="multipart/form-data">
+                <div class="form-group" style="text-align: right; padding-left: 33%; padding-top: 30px">
+                        <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success" >
+                            <input type="checkbox" class="custom-control-input" id="customSwitch3" name="switchValue" value="true"checked>
+                            <label class="custom-control-label" for="customSwitch3" ></label>
+                        </div>
+                    </div>
+                <h1 style="text-align: center;"> Создание новой новости</h1>
+                <input type="date" name="selectedDate">
+                <div class="row" style="padding-top: 40px">
+                    <div class="col-lg-2">
+                        <br>
+                        <label>Название</label>
+                        <br>
+                        <label>Описание</label>
+                        <br>
+                    </div>
+                    <div class="col-lg-10">
+                        <br>
+                        <input name="name">
+                        <br>
+                        <textarea style="width: 533px;height:400px" name="description"></textarea>
+                        <br>
+                    </div>
+                </div>
+                <br>
+                <label>Главная картинка</label>
+                <br>
+
+                <input type="file" name="mainImagine">
+
+                <br>
+
+                <label> Галерея картинок</label>
+                <br>
+                <input type="file" name="images[]" multiple>
+                <input type="file" name="images[]" multiple>
+                <input type="file" name="images[]" multiple>
+                <input type="file" name="images[]" multiple>
+                <input type="file" name="images[]" multiple>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2">
+                        <label for="linkTrailer">Ссылка</label>
+                    </div>
+                    <div class="col-lg-8 col-md-8">
+                        <input id="linkTrailer" name="link" style="width: 100%; height: 30px;">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label> Seo-блок</label>
+                    </div>
+                    <div class="col-lg-8">
+                        <br>
+                        <label>URL:</label>
+                        <input style="width: 533px;height:23px" name="url">
+                        <br>
+                        <label>Title:</label>
+                        <input style="width: 533px;height:23px" name="title">
+                        <br>
+                        <label>Keywords:</label>
+                        <input style="width: 533px;height:23px" name="keywords">
+                        <br>
+                        <label>Description:</label>
+                        <textarea style="width: 533px;height:400px" name="descriptionSeo"></textarea>
+                        <br>
+                    </div>
+                    <div class="col-lg-2"></div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary" form="edit-publicMain-form">Сохранить</button>
+                </div>
+            </form>
+
+
+        </section>
+
+    </div>
+</div>
+
+</body>
+</html>

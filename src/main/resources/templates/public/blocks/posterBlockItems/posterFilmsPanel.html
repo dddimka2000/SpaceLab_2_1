@@ -1,0 +1,55 @@
+<div th:fragment="posterFilmsPanel">
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-1">
+                <ul class="nav nav-pills flex-column ">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/poster/#poster"
+                                            data-bs-toggle="pill">Афиша</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/poster/#soon" data-bs-toggle="pill">Скоро</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-11">
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="poster">
+                        <div style="background: #1a1c24">
+                            <div style="padding-top: 30px; padding-bottom: 30px">
+                                <div class="row">
+                                    <div th:each="us, i : ${now}" class="col-3" style="text-align: center;">
+                                        <a th:href="@{/poster/{name}(name=${us.name})}" style="text-decoration: none;">
+                                            <img th:src="${us.img}" style="height: 180px;width: 120px;">
+                                            <h1 style="color: white" th:text="${us.name}"></h1>
+                                            <button type="button" class="btn btn-outline-success">Купить билет</button>
+                                        </a>
+                                        <div th:if="${(i.index + 1) % 4 == 0}"><br></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="soon">
+                        <div style="background: #1a1c24">
+                            <div style="padding-top: 30px; padding-bottom: 30px">
+                                <div class="row">
+                                    <div class="row">
+                                        <div th:each="us, i : ${soon}" class="col-3" style="text-align: center;">
+                                            <a th:href="@{/poster/{name}(name=${us.name})}"
+                                               style="text-decoration: none;">
+                                                <img th:src="${us.img}" style="height: 180px;width: 120px;">
+                                                <h1 style="color: white" th:text="${us.name}"></h1>
+                                            </a>
+                                            <h5 style="color: green">Скоро</h5>
+                                            <div th:if="${(i.index + 1) % 4 == 0}"><br></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

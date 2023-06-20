@@ -1,0 +1,52 @@
+<div th:fragment="carousel">
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div th:each="us,i:${carouselItems}">
+                <div th:if="${i.index==0}">
+                    <div class="carousel-item active">
+                        <img th:src="${us.path}" class="d-block w-100" style="height: 600px">
+                        <a href="https://play.google.com/store/games">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/2560px-Google_Play_Store_badge_EN.svg.png"
+                                 alt="Google Play"
+                                 style="position: absolute; top: 90%; left: 65%; transform: translate(-80%, -80%); height: 70px; width: 20%"></img>
+                        </a>
+                        <a href="http://apps.apple.com/">
+                            <img src="https://logos-world.net/wp-content/uploads/2021/02/App-Store-Symbol.png"
+                                 alt="Apple"
+                                 style="position: absolute; top: 93.5%; left: 90%; transform: translate(-80%, -80%); height:135px; width: 20%"></img>
+                        </a>
+                    </div>
+                </div>
+                <div th:unless="${i.index==0}">
+                    <div class="carousel-item">
+                        <img th:src="${us.path}"
+                             class="d-block w-100" style="height: 600px">
+                        <a href="https://play.google.com/store/games">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/2560px-Google_Play_Store_badge_EN.svg.png"
+                                 alt="Google Play"
+                                 style="position: absolute; top: 90%; left: 65%; transform: translate(-80%, -80%); height: 70px; width: 20%"></img>
+                        </a>
+                        <a href="http://apps.apple.com/">
+                            <img src="https://logos-world.net/wp-content/uploads/2021/02/App-Store-Symbol.png"
+                                 alt="Apple"
+                                 style="position: absolute; top: 93.5%; left: 90%; transform: translate(-80%, -80%); height:135px; width: 20%"></img>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+
+</div>
+

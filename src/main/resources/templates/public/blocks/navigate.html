@@ -1,0 +1,111 @@
+<div th:fragment="navigate">
+    <div class="row">
+        <div class="col-lg-10">
+            <div style="display: flex; justify-content: center;">
+                <div class="container">
+                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                        <a th:href="@{/}">
+                            <button type="button" class="btn btn-primary btn-lg"
+                                    aria-expanded="false">
+                                Главная
+                            </button>
+                        </a>
+                        <a th:href="@{/poster/#poster}">
+                            <button type="button" class="btn btn-primary btn-lg"
+                                    aria-expanded="false">
+                                Афиша
+                            </button>
+                        </a>
+                        <a th:href="@{/schedule}">
+                            <button type="button" class="btn btn-primary btn-lg"
+                                    aria-expanded="false">
+                                Расписание
+                            </button>
+                        </a>
+                        <a th:href="@{/cinemas}">
+                            <button type="button" class="btn btn-primary btn-lg">
+                                Кинотеатры
+                            </button>
+                        </a>
+                        <a th:href="@{/stock}">
+                            <button type="button" class="btn btn-primary btn-lg">
+                                Акции
+                                <span class="caret"></span>
+                            </button>
+                        </a>
+                        <div class="btn-group" role="group">
+                            <div class="dropdown" style="display: inline-block;">
+                                <button type="button" class="btn btn-primary btn-lg dropdown-toggle"
+                                        data-bs-toggle="dropdown">
+                                    О кинотеатре
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item"
+                                           th:href="@{/О кинотеатре}">
+                                        О кинотеатре
+                                    </a>
+                                    </li>
+                                    <li><a class="dropdown-item"
+                                           th:href="@{/news}">
+                                        Новости
+                                    </a>
+                                    </li>
+                                    <li><a class="dropdown-item"
+                                           th:href="@{/Кафе - Бар}">
+                                        Кафе - Бар
+                                    </a>
+                                    </li>
+                                    <li th:each="us,i:${otherPages}">
+                                        <div th:if="${i.index!=0&&i.index!=1}">
+                                            <a class="dropdown-item"
+                                               th:href="@{/{name}(name=${us.name})}"
+                                               th:text="${us.name}">
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li><a class="dropdown-item"
+                                           th:href="@{/mobileApplications}">
+                                        Мобильные приложения
+                                    </a>
+                                    <li>
+                                        <a class="dropdown-item"
+                                           th:href="@{/{name}(name=${contactsPage.namePage})}"
+                                           th:text="${contactsPage.namePage}">
+                                        </a>
+                                    </li>
+                                    <li th:each="page:${newPages}">
+                                        <a class="dropdown-item"
+                                           th:href="@{/{name}(name=${page.name})}"
+                                           th:text="${page.name}">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="btn-group" role="group" style="text-align: left; ">
+                <div class="dropdown" style="display: inline-block;">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="languageDropdown"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-flag"></i>
+                        <span>Русский</span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                        <li><a class="dropdown-item active-table-tab" href="#" data-language="Русский"><i
+                                class="bi bi-flag"></i> Русский</a></li>
+                        <li><a class="dropdown-item" href="#" data-language="Украинский"><i class="bi bi-flag"></i>
+                            Украинский</a></li>
+                        <li><a class="dropdown-item" href="#" data-language="Английский"><i class="bi bi-flag"></i>
+                            Английский</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
