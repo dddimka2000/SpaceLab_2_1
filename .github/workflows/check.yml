@@ -5,12 +5,20 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    steps:
+  steps:
       - name: CheckOut
         uses: actions/checkout@v3
 
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+
+      - name: Change directory
+        run: cd path/to/your/project
+
       - name: Install deps
-        run: npm install
+        run: mvn clean install
 
       - name: Lint
-        run: npm run lint
+        run: mvn clean verify
