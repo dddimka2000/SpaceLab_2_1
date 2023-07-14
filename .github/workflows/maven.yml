@@ -22,11 +22,11 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: Copy artifacts
-      run: cp target/my-application.jar ${{ github.workspace }}/artifacts/SpaceLab_2_1.jar
+      run: cp target/SpaceLab_2_1.jar ${{ github.workspace }}/artifacts/SpaceLab_2_1.jar
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: my-application
-        path: ${{ github.workspace }}/artifacts/my-application.jar
+        name: SpaceLab_2_1
+        path: ${{ github.workspace }}/artifacts/SpaceLab_2_1.jar
     - name: Code style check
       run: mvn spotless:check
