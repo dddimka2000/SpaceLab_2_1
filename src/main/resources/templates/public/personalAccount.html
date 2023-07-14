@@ -8,88 +8,106 @@
             crossorigin="anonymous"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
-<br>
+<div th:insert="public/blocks/entryPanel :: entryPanel" style="padding-top:10px"></div>
 <div style="text-align: center">
     <div th:insert="public/blocks/search :: search" style="padding-top: 20px;"></div>
     <div th:insert="public/blocks/navigate :: navigate"></div>
 </div>
-<div class="card">
+<br>
+<div class="wrapper">
     <form id="edit-user-form" method="POST">
 
-        <div class="row" style="text-align: center">
-            <h1>Редактировать аккаунт</h1>
-            <div th:if="${errorMessage}">
-                <p th:text="${errorMessage}" style="color: red"></p>
-            </div>
-            <div class="col-6">
-                <div class="form-group">
-                    <label for="password">password</label>
-                    <input type="text" class="form-control" id="password"
-                           placeholder="Введите пароль" th:value="${us.password}" name="password">
+        <div class="content-wrapper">
+            <div style="text-align: center">
+
+                <div class="content-header">
+                    <h1>Редактировать аккаунт</h1>
+                    <div th:if="${errorMessage}">
+                        <p th:text="${errorMessage}" style="color: red"></p>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="inputEmail">Электронная почта</label>
-                    <input type="text" class="form-control" id="inputEmail"
-                           placeholder="Введите адрес электронной почты" th:value="${us.eMail}" name="email">
-                </div>
-                <div class="form-group">
-                    <label for="inputName">Имя</label>
-                    <input type="text" class="form-control" id="inputName"
-                           placeholder="Имя" th:value="${us.name}" name="name">
-                </div>
-                <div class="form-group">
-                    <label for="inputSurname">Фамилия</label>
-                    <input type="text" class="form-control" id="inputSurname"
-                           placeholder="Введите фамилию" th:value="${us.surname}" name="surname">
-                </div>
-                <div class="form-group">
-                    <label for="inputTelephone">Телефон</label>
-                    <input type="text" class="form-control" id="inputTelephone"
-                           placeholder="Введите телефон" th:value="${us.telephone}" name="telephone">
-                </div>
-                <div class="form-group">
-                    <label for="inputSurname">Адресс</label>
-                    <input class="form-control" type="text" name="address" th:value="${us.address}">
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="form-group">
-                    <label for="passwordRepeat">passwordRepeat</label>
-                    <input type="text" class="form-control" id="passwordRepeat"
-                           placeholder="Введите пароль повторно" th:value="${us.password}" name="passwordRepeat">
-                </div>
-                <div class="form-group">
-                    <label for="inputSurname">Пол</label>
-                    <br>
-                    <input type="radio" name="gender" value="true" th:checked="${us.gender==true}">
-                    <label>woman</label>
-                    <input type="radio" name="gender" value="false" th:checked="${us.gender==false}">
-                    <label>man</label>
+                <div class="card">
+
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="password">password</label>
+                                    <input type="text" class="form-control" id="password"
+                                           placeholder="Введите пароль" th:value="${us.password}" name="password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail">Электронная почта</label>
+                                    <input type="text" class="form-control" id="inputEmail"
+                                           placeholder="Введите адрес электронной почты" th:value="${us.eMail}"
+                                           name="email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputName">Имя</label>
+                                    <input type="text" class="form-control" id="inputName"
+                                           placeholder="Имя" th:value="${us.name}" name="name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputSurname">Фамилия</label>
+                                    <input type="text" class="form-control" id="inputSurname"
+                                           placeholder="Введите фамилию" th:value="${us.surname}" name="surname">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputTelephone">Телефон</label>
+                                    <input type="text" class="form-control" id="inputTelephone"
+                                           placeholder="Введите телефон" th:value="${us.telephone}" name="telephone">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputSurname">Адресс</label>
+                                    <input class="form-control" type="text" name="address" th:value="${us.address}">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="passwordRepeat">passwordRepeat</label>
+                                    <input type="text" class="form-control" id="passwordRepeat"
+                                           placeholder="Введите пароль повторно" th:value="${us.password}"
+                                           name="passwordRepeat">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputSurname">Пол</label>
+                                    <br>
+                                    <input type="radio" name="gender" value="true" th:checked="${us.gender==true}">
+                                    <label>woman</label>
+                                    <input type="radio" name="gender" value="false" th:checked="${us.gender==false}">
+                                    <label>man</label>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <input type="date" name="birthday"
+                                           value="${#dates.format(us.birthday, 'yyyy-MM-dd')}">
+                                </div>
+                                <br>
+                                <br>
+                                <div class="form-group">
+                                    <select name="city">
+                                        <option value="">Выберите город</option>
+                                        <option value="Киев">Киев</option>
+                                        <option value="Харьков">Харьков</option>
+                                        <option value="Одесса">Одесса</option>
+                                        <option value="Днепр">Днепр</option>
+                                        <option value="Львов">Львов</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>
+                    </div>
                 </div>
                 <br>
-                <div class="form-group">
-                    <input type="date" name="birthday" value="${#dates.format(us.birthday, 'yyyy-MM-dd')}">
+                <br>
+                <div style="text-align: center">
+                    <button type="submit" class="btn btn-primary" form="edit-user-form">Сохранить</button>
                 </div>
                 <br>
-                <br>
-                <div class="form-group">
-                    <select name="city">
-                        <option value="">Выберите город</option>
-                        <option value="Киев">Киев</option>
-                        <option value="Харьков">Харьков</option>
-                        <option value="Одесса">Одесса</option>
-                        <option value="Днепр">Днепр</option>
-                        <option value="Львов">Львов</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <br>
-        <br>
-        <div style="text-align: center">
-            <button type="submit" class="btn btn-primary" form="edit-user-form">Сохранить</button>
-        </div>
-        <br>
     </form>
 </div>
 <div th:insert="public/blocks/endPage :: endPage" style="padding-top: 30px"></div>

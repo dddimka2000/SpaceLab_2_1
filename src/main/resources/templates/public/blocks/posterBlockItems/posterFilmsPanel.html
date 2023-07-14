@@ -17,7 +17,7 @@
                                 <div class="row">
                                     <div th:each="us, i : ${now}" class="col-3" style="text-align: center;">
                                         <a th:href="@{/poster/{name}(name=${us.name})}" style="text-decoration: none;">
-                                            <img th:src="${us.img}" style="height: 180px;width: 120px;">
+                                            <img th:src="@{${us.img}}" style="height: 180px;width: 120px;">
                                             <h1 style="color: white" th:text="${us.name}"></h1>
                                             <button type="button" class="btn btn-outline-success">Купить билет</button>
                                         </a>
@@ -35,7 +35,7 @@
                                         <div th:each="us, i : ${soon}" class="col-3" style="text-align: center;">
                                             <a th:href="@{/poster/{name}(name=${us.name})}"
                                                style="text-decoration: none;">
-                                                <img th:src="${us.img}" style="height: 180px;width: 120px;">
+                                                <img th:src="@{${us.img}}" style="height: 180px;width: 120px;">
                                                 <h1 style="color: white" th:text="${us.name}"></h1>
                                             </a>
                                             <h5 style="color: green">Скоро</h5>

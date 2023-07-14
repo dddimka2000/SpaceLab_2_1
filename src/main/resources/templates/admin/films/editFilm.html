@@ -18,7 +18,7 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-
+    <div th:insert="public/blocks/entryPanel :: entryPanel"></div>
     <div th:insert="admin/blocks/sidebarMenu :: sidebarMenu"></div>
     <div class="content-wrapper">
         <section class="content mx-auto" style=" width: 1000px;">
@@ -52,7 +52,7 @@
                 <br>
                 <label>Главная картинка</label>
                 <br>
-                <img th:src="${info.img}" width="140" height="190">
+                <img th:src="@{${info.img}}" width="140" height="190">
                 <br>
                 <input type="file" name="mainImagine">
                 <br>
@@ -61,38 +61,38 @@
                 <div class="row text-center">
                     <div class="col-lg-2">
                         <div th:if="${info.img1!=null}">
-                            <img th:src="${info.img1}" width="140" height="100">
+                            <img th:src="@{${info.img1}}" width="140" height="100">
                         </div>
                         <br>
                         <input type="file" name="images[]" multiple>
                     </div>
                     <div class="col-lg-2">
                         <div th:if="${info.img2!=null}">
-                            <img th:src="${info.img2}" width="140" height="100">
+                            <img th:src="@{${info.img2}}" width="140" height="100">
                         </div>
                         <br>
                         <input type="file" name="images[]" multiple>
                     </div>
                     <div class="col-lg-2">
                         <div th:if="${info.img3!=null}">
-                            <img th:src="${info.img3}" width="140" height="100">
+                            <img th:src="@{${info.img3}}" width="140" height="100">
                         </div>
                         <br>
                         <input type="file" name="images[]" multiple>
                     </div>
                     <div class="col-lg-2">
                         <div th:if="${info.img4!=null}">
-                            <img th:src="${info.img4}" width="140" height="100">
+                            <img th:src="@{${info.img4}}" width="140" height="100">
                         </div>
                         <br>
                         <input type="file" name="images[]" multiple>
                     </div>
                     <div class="col-lg-2">
                         <div th:if="${info.img5!=null}">
-                            <img th:src="${info.img5}" width="140" height="100">
+                            <img th:src="@{${info.img5}}" width="140" height="100">
                         </div>
                         <br>
-                            <input type="file" name="images[]" multiple>
+                        <input type="file" name="images[]" multiple>
                     </div>
                 </div>
 

@@ -7,6 +7,7 @@ import org.example.repository.UserRepository;
 import org.example.service.DistributionService;
 import org.example.service.MailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -26,7 +28,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RequestMapping("/admin/mailSender")
 @Log4j2
 public class MailSenderAdminController {
-    String path = "C:\\Users\\User\\IdeaProjects\\SpaceLab_2_1\\src\\main\\resources\\static\\files\\messages\\";
+
+
+    @Value("${path.messages}")
+    String path;
+
     private List<UserEntity> selectUsers = new ArrayList();
 
     final
@@ -87,8 +93,7 @@ public class MailSenderAdminController {
             return "redirect:/admin/mailSender";
         }
         List<UserEntity> users;
-        log.info(choiceUsers.get());
-        if (choiceUsers.get() == true) {
+        if (choiceUsers.isPresent() && choiceUsers.get() == true) {
             users = userRepository.findAll();
         } else {
             users = selectUsers;
@@ -115,7 +120,8 @@ public class MailSenderAdminController {
                 distributionEntity.setName(htmlLetter.getOriginalFilename());
                 AtomicInteger count = new AtomicInteger(0);
                 final String finalHtmlContent = htmlContent;
-                Integer dif = (int) users.stream().filter(user -> user.getEMail() == null).count();
+                Integer dif = (int) users.stream().filter(user -> user.getEMail() == null || user.getEMail() == ""
+            || user.getEMail().isBlank()).count();
 
 //                users.stream()
 //                        .filter(user -> user.getEMail() != null && !user.getEMail().isEmpty())
@@ -127,14 +133,15 @@ public class MailSenderAdminController {
 //                                log.info((((double) (count.get() / (users.size() - dif))) * 100));
 //                            }
 //                        });
-                for(UserEntity user:users){
-                    Optional<UserEntity> optional=Optional.of(user);
-                    if (optional.isPresent() && optional.get().getEMail() != null && !optional.get().getEMail().isBlank()) {
+                for (UserEntity user : users) {
+                    Optional<UserEntity> optional = Optional.of(user);
+                    if (optional.isPresent() && optional.get().getEMail() != null && !optional.get().getEMail().isBlank()
+                            && optional.get().getEMail() != "") {
                         mailSender.sendSimpleMail(user.getEMail(), htmlLetter.getName(), finalHtmlContent);
                         count.incrementAndGet();
                         log.info((users.size() - dif));
                         log.info(count.get());
-                        percents = count.get() /(double) (users.size() - dif);
+                        percents = count.get() / (double) (users.size() - dif);
                         log.info(percents);
                     }
 
@@ -153,25 +160,16 @@ public class MailSenderAdminController {
                 }
                 AtomicInteger count = new AtomicInteger(distributionEntity.getNum_times());
                 final String finalHtmlContent = htmlContent;
-                Integer dif = (int) users.stream().filter(user -> user.getEMail() == null || user.getEMail().isBlank()).count();
-//                users.stream()
-//                        .filter(user -> user.getEMail() != null && !user.getEMail().isEmpty())
-//                        .forEach(user -> {
-//                            mailSender.sendSimpleMail(user.getEMail(), htmlLetter.getName(), finalHtmlContent);
-//                            count.incrementAndGet();
-//                            synchronized (percentsLock) {
-//                                session.setAttribute("percents", (((double) (count.get() / (users.size() - dif))) * 100));
-//                                log.info((((double) (count.get() / (users.size() - dif))) * 100));
-//                            }
-//                        });
+                Integer dif = (int) users.stream().filter(user -> user.getEMail() == null || user.getEMail().isBlank()
+                        || user.getEMail() == "").count();
                 AtomicInteger i = new AtomicInteger(0);
-                for(UserEntity user:users){
-                    Optional<UserEntity> optional=Optional.of(user);
-                    if (optional.isPresent() && optional.get().getEMail() != null && !optional.get().getEMail().isBlank()&&optional.get().getEMail()!="") {
+                for (UserEntity user : users) {
+                    Optional<UserEntity> optional = Optional.of(user);
+                    if (optional.isPresent() && optional.get().getEMail() != null && !optional.get().getEMail().isBlank() && optional.get().getEMail() != "") {
                         mailSender.sendSimpleMail(user.getEMail(), htmlLetter.getName(), finalHtmlContent);
                         count.incrementAndGet();
                         i.incrementAndGet();
-                        percents = i.get() /(double) (users.size() - dif);
+                        percents = i.get() / (double) (users.size() - dif);
                         log.info(percents);
                     }
 
@@ -190,7 +188,6 @@ public class MailSenderAdminController {
     @ResponseBody
     public Integer getPercents() {
         Integer newInt = (int) (percents * 100);
-        log.info(newInt);
-        return  newInt;
+        return newInt;
     }
 }

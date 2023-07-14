@@ -6,7 +6,6 @@ import org.example.repository.SessionRepository;
 import org.example.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -31,19 +30,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return NoOpPasswordEncoder.getInstance();
     }
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login", "/error", "/registration").permitAll()
-                .antMatchers("/process_login").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/admin/**").authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/process_login")
+                .loginPage("/auth/login")
+                .loginProcessingUrl("/auth/process_login")
                 .defaultSuccessUrl("/", true)
-                .failureUrl("/login?error")
+                .failureUrl("/auth/login?error")
                 .successHandler(new CustomAuthenticationSuccessHandler(sessionRepository, userDetailsService))
                 .and()
                 .sessionManagement()

@@ -18,11 +18,13 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
+    <div th:insert="public/blocks/entryPanel :: entryPanel"></div>
+
     <div th:insert="admin/blocks/sidebarMenu :: sidebarMenu"></div>
     <div class="content-wrapper">
         <section class="content mx-auto" style=" width: 1000px;">
 
-            <form id="edit-publicMain-form" method="post" action="/admin/pages/newPage/create"
+            <form id="edit-publicMain-form" method="post" th:action="@{/admin/pages/newPage/create}"
                   enctype="multipart/form-data">
                 <h1 style="text-align: center;"> Создание новой страницы</h1>
                 <div class="form-group">

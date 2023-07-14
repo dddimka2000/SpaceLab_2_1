@@ -2,7 +2,9 @@ package org.example.service;
 
 
 import lombok.extern.log4j.Log4j2;
+import org.example.model.SessionEntity;
 import org.example.model.UserEntity;
+import org.example.repository.SessionRepository;
 import org.example.repository.UserRepository;
 import org.example.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +23,13 @@ import java.util.Optional;
 @Log4j2
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
+    final
+    SessionRepository sessionRepository;
     private final UserRepository userRepository;
     @Autowired
-    public UserDetailsServiceImpl(UserRepository userRepository) {
+    public UserDetailsServiceImpl(UserRepository userRepository, SessionRepository sessionRepository) {
         this.userRepository = userRepository;
+        this.sessionRepository = sessionRepository;
     }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -44,8 +49,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public Optional<UserEntity> findById(Integer integer){
         return userRepository.findById(integer);
     }
-    public void delete(UserEntity integer){
-        userRepository.delete(integer);
+
+    public void delete(Integer integer){
+        UserEntity user = userRepository.findById(integer).orElseThrow();
+        List<SessionEntity> sessions = user.getSessions();
+        sessions.stream().forEach(session->sessionRepository.delete(session));
+        userRepository.deleteById(integer);
     }
     public Optional<UserEntity> findByLog(String login){
         return userRepository.findFirstByLog(login);

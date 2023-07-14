@@ -28,55 +28,65 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
+    <div th:insert="public/blocks/entryPanel :: entryPanel"></div>
     <div th:insert="admin/blocks/sidebarMenu :: sidebarMenu"></div>
     <div class="content-wrapper">
-        <form id="edit-publicMain-form" method="post">
-            <div class="row" style="padding-top: 40px">
-                <div class="col-lg-2">
-                    <label>Телефон</label>
+        <div class="content-header">
+            <h1 style="text-align: center">Изменение Главной страницы</h1>
+        </div>
+
+        <div class="container-fluid">
+
+            <form id="edit-publicMain-form" method="post">
+                <div class="row" style="padding-top: 40px;">
+                    <div class="col-lg-2">
+                        <label>Телефон</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input name="telephone1" th:value="${mainPage.getTelephone1()}">
+                        <br>
+                        <input name="telephone2" th:value="${mainPage.getTelephone2()}">
+                    </div>
+                    <div class="col-lg-8"></div>
                 </div>
-                <div class="col-lg-2">
-                    <input name="telephone1" th:value="${mainPage.getTelephone1()}">
-                    <br>
-                    <input name="telephone2" th:value="${mainPage.getTelephone2()}">
+                <br>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2">
+                        <label for="seoText">Seo-Text</label>
+                    </div>
+                    <div class="col-lg-8 col-md-8">
+                        <textarea id="seoText" name="seoText" style="width: 100%; height: 119px;"
+                                  th:text="${seoText}"></textarea>
+                    </div>
                 </div>
-                <div class="col-lg-8"></div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-lg-2 col-md-2">
-                    <label for="seoText">Seo-Text</label>
+                <br>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label> Seo-блок</label>
+                    </div>
+                    <div class="col-lg-8">
+                        <br>
+                        <label>URL:</label>
+                        <input style="width: 533px;height:23px" name="url" th:value="${mainPage.getUrl()}">
+                        <br>
+                        <label>Title:</label>
+                        <input style="width: 533px;height:23px" name="title" th:value="${mainPage.getTitle()}">
+                        <br>
+                        <label>Keywords:</label>
+                        <input style="width: 533px;height:23px" name="keywords" th:value="${mainPage.getKeywords()}">
+                        <br>
+                        <label>Description:</label>
+                        <textarea style="width: 533px;height:400px" name="description"
+                                  th:text="${description}"></textarea>
+                        <br>
+                    </div>
+                    <div class="col-lg-2"></div>
                 </div>
-                <div class="col-lg-8 col-md-8">
-                    <textarea id="seoText" name="seoText" style="width: 100%; height: 119px;" th:text="${seoText}"></textarea>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary" form="edit-publicMain-form">Сохранить</button>
                 </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-lg-2">
-                    <label> Seo-блок</label>
-                </div>
-                <div class="col-lg-8">
-                    <br>
-                    <label>URL:</label>
-                    <input style="width: 533px;height:23px" name="url" th:value="${mainPage.getUrl()}">
-                    <br>
-                    <label>Title:</label>
-                    <input style="width: 533px;height:23px" name="title" th:value="${mainPage.getTitle()}">
-                    <br>
-                    <label>Keywords:</label>
-                    <input style="width: 533px;height:23px" name="keywords" th:value="${mainPage.getKeywords()}">
-                    <br>
-                    <label>Description:</label>
-                    <textarea style="width: 533px;height:400px" name="description" th:text="${description}"></textarea>
-                    <br>
-                </div>
-                <div class="col-lg-2"></div>
-            </div>
-            <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary" form="edit-publicMain-form">Сохранить</button>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 </body>

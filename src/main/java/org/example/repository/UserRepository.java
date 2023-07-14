@@ -17,4 +17,7 @@ public interface UserRepository extends JpaRepository<UserEntity,Integer> {
     <S extends UserEntity> S save(S entity);
 
     Page<UserEntity> findAll(Pageable pageable);
+
+    @Override
+    void deleteById(Integer integer);
 }

@@ -4,6 +4,7 @@ import lombok.extern.log4j.Log4j2;
 import org.example.model.PageEntity;
 import org.example.service.pages.NewPageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -22,8 +24,11 @@ import java.util.UUID;
 @RequestMapping("admin/pages/")
 @Log4j2
 public class NewPageController {
-    String path = "C:\\Users\\User\\IdeaProjects\\SpaceLab_2_1\\src\\main\\resources\\static\\img\\";
+    @Value("${spring.pathImg}")
+    String path;
 
+    @Value("${spring.regex}")
+    String regex;
     final
     NewPageService newPageService;
     @Autowired
@@ -68,7 +73,7 @@ public class NewPageController {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            String mainImaginePath = "/photos/" + resultFilename;
+            String mainImaginePath = regex + resultFilename;
 
 
             pageEntity.setImg(mainImaginePath);
@@ -86,7 +91,7 @@ public class NewPageController {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                img = "/photos/" + resultFilename;
+                img = regex + resultFilename;
                 setImgMethod = pageEntity.getClass().getMethod("setImg" + setImgNum, String.class);
                 setImgMethod.invoke(pageEntity, img);
             }
@@ -98,20 +103,6 @@ public class NewPageController {
 
         return "redirect:/admin/pages";
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     @GetMapping("/newPage")
@@ -153,7 +144,7 @@ public class NewPageController {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            String mainImaginePath = "/photos/" + resultFilename;
+            String mainImaginePath = regex + resultFilename;
 
 
             pageEntity.setImg(mainImaginePath);
@@ -171,7 +162,7 @@ public class NewPageController {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                img = "/photos/" + resultFilename;
+                img = regex + resultFilename;
                 setImgMethod = pageEntity.getClass().getMethod("setImg" + setImgNum, String.class);
                 setImgMethod.invoke(pageEntity, img);
             }

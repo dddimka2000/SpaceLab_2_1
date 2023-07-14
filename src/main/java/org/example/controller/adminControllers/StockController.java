@@ -5,6 +5,7 @@ import org.example.model.NewsEntity;
 import org.example.model.StockEntity;
 import org.example.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,17 +15,19 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+
 @Log4j2
 @Controller
 @RequestMapping("/admin/stocks")
 public class StockController {
-    String path = "C:\\Users\\User\\IdeaProjects\\SpaceLab_2_1\\src\\main\\resources\\static\\img\\";
+    @Value("${spring.regex}")
+    String regex;
+    @Value("${spring.pathImg}")
+    String path;
 
     final
     StockService stockService;
@@ -33,11 +36,27 @@ public class StockController {
     public StockController(StockService stockService) {
         this.stockService = stockService;
     }
-
+    SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @GetMapping
     public String showStocks(Model model) {
         List<StockEntity> stockEntities = stockService.findAll();
+
+        List<String> dateList = new ArrayList<>();
+        stockService.findAll()
+                .stream()
+                .forEach(newsEntity -> {
+                    String dateString = newsEntity.getDate().toString();
+                    try {
+                        Date date = inputFormat.parse(dateString);
+                        String formattedDate = outputFormat.format(date);
+                        dateList.add(formattedDate);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                });
+        model.addAttribute("dateList", dateList);
         model.addAttribute("news", stockEntities);
         return "/admin/stocks/stocks";
     }
@@ -81,7 +100,7 @@ public class StockController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        String mainImaginePath = "/photos/" + resultFilename;
+        String mainImaginePath = regex + resultFilename;
 
         stockEntity.setImg(mainImaginePath);
 
@@ -97,7 +116,7 @@ public class StockController {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                img = "/photos/" + resultFilename;
+                img = regex + resultFilename;
                 setImgMethod = stockEntity.getClass().getMethod("setImg" + setImgNum, String.class);
                 setImgMethod.invoke(stockEntity, img);
             }
@@ -121,7 +140,17 @@ public class StockController {
 
     @GetMapping("/{id}")
     public String showModelNews(@PathVariable Integer id, Model model) {
+
         StockEntity stockEntity = stockService.findById(id).get();
+        String dateString =stockEntity.getDate().toString();
+        String formattedDate=null;
+        try {
+            Date date = inputFormat.parse(dateString);
+            formattedDate= outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("getDate",formattedDate);
         model.addAttribute("info", stockEntity);
         return "/admin/stocks/editStock";
     }
@@ -155,7 +184,7 @@ public class StockController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        String mainImaginePath = "/photos/" + resultFilename;
+        String mainImaginePath = regex + resultFilename;
 
         stockEntity.setImg(mainImaginePath);
 
@@ -171,7 +200,7 @@ public class StockController {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                img = "/photos/" + resultFilename;
+                img = regex + resultFilename;
                 setImgMethod = stockEntity.getClass().getMethod("setImg" + setImgNum, String.class);
                 setImgMethod.invoke(stockEntity, img);
             }

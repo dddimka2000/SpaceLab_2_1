@@ -4,6 +4,7 @@ import lombok.extern.log4j.Log4j2;
 import org.example.model.MainPageEntity;
 import org.example.service.pages.MainPageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.*;
+import java.net.URL;
 import java.util.Optional;
 
 @Log4j2
@@ -25,6 +27,12 @@ public class PublicMainPageController {
         this.mainPageService = mainPageService;
     }
 
+
+    @Value("${path.seoText}")
+    String file;
+
+
+
     @GetMapping
     public String publicMainPageAdmin(Model model) throws FileNotFoundException {
         Optional<MainPageEntity> mainPage= mainPageService.findById(1);
@@ -35,7 +43,8 @@ public class PublicMainPageController {
         model.addAttribute("mainPage", mainPage.get());
         StringBuilder description = new StringBuilder();
         StringBuilder seoText = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/static/files/mainPage/description.txt"))) {
+        try (BufferedReader reader = new BufferedReader
+                (new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 description.append(line).append("\n");
@@ -44,7 +53,8 @@ public class PublicMainPageController {
             log.error(e);
             throw new RuntimeException(e);
         }
-        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/static/files/mainPage/seoText.txt"))) {
+        try (BufferedReader reader = new BufferedReader
+                (new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 seoText.append(line).append("\n");
@@ -77,14 +87,16 @@ public class PublicMainPageController {
         mainPage.get().setKeywords(keywords);
         mainPageService.saveMainPage(mainPage.get());
         try {
-            BufferedWriter bufferedWriter=new BufferedWriter(new FileWriter("src/main/resources/static/files/mainPage/description.txt"));
+            BufferedWriter bufferedWriter=new BufferedWriter
+                    (new FileWriter(file));
             bufferedWriter.write(description);
             bufferedWriter.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         try {
-            BufferedWriter bufferedWriter=new BufferedWriter(new FileWriter("src/main/resources/static/files/mainPage/seoText.txt"));
+            BufferedWriter bufferedWriter=new BufferedWriter
+                    (new FileWriter(file));
             bufferedWriter.write(seoText);
             bufferedWriter.close();
         } catch (IOException e) {

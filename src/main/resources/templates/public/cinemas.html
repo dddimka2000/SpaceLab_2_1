@@ -8,13 +8,10 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<div class="row">
-    <div class="col-lg-1">
-    </div>
-    <div class="col-lg-11">
-        <div th:insert="public/blocks/search :: search" style="padding-top: 20px;"></div>
-        <div th:insert="public/blocks/navigate :: navigate"></div>
-    </div>
+<div th:insert="public/blocks/entryPanel :: entryPanel" style="padding-top:10px"></div>
+<div style="text-align: center">
+    <div th:insert="public/blocks/search :: search" style="padding-top: 20px;"></div>
+    <div th:insert="public/blocks/navigate :: navigate"></div>
 </div>
 <img src="https://truskawec.com/templates/yootheme/cache/5b/cinema_zlata_01-5bd411d0.jpeg"
      style="width: 100%; padding-top: 30px;padding-bottom: 30px">
@@ -26,7 +23,7 @@
                 <div th:if="${i.index!=cinemas.size()-1}">
                     <a th:href="@{/cinemas/{name}(name=${us.name})}">
                         <br>
-                        <img style="height: 250px; width:366px" th:src="${us.logoPath}">
+                        <img style="height: 250px; width:366px" th:src="@{${us.logoPath}}">
                         <br>
                         <text th:text="${us.name}"
                               style="text-decoration: none;    color: initial;    cursor: auto;"></text>

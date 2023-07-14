@@ -1,60 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <title>Admin</title>
-
-    <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-    <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <!-- iCheck -->
     <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- JQVMap -->
     <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
-    <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
-    <!-- overlayScrollbars -->
     <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <!-- Daterange picker -->
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-    <!-- summernote -->
     <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
+<div th:insert="public/blocks/entryPanel :: entryPanel"></div>
 <div class="wrapper">
     <div th:insert="admin/blocks/sidebarMenu :: sidebarMenu"></div>
     <div class="content-wrapper section-center">
-        <h1 style="text-align: center">На главной вверх</h1>
-        <section class="content mx-auto" style=" width: 1000px;">
-
+        <div class="content-header">
+            <h1 style="text-align: center">На главной вверх</h1>
+        </div>
+        <div class="container-fluid">
             <div class="card">
-                <form action="/admin/banners/carousel" method="post" enctype="multipart/form-data">
+                <form th:action="@{/admin/banners/carousel}" method="post" enctype="multipart/form-data">
+                    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success" style="text-align: right; padding-right: 30px; padding-top: 10px">
+                        <input type="checkbox" class="custom-control-input" id="customSwitch3" name="switchValue"
+                               value="true" th:checked="${carouselItems.get(0).backgroundSelection}" >
+                        <label class="custom-control-label" for="customSwitch3"></label>
+                    </div>
                     <div class="row justify-content-center">
-                        <div th:each="photo : ${carouselItems}">
-                            <div class="col-lg-2">
-                                <br>
-                                <img class="preview" th:src="${photo.path}" style="width: 130px; height: 160px; ">
-                                <button style="position: absolute; top: 9px; left: 125px; background: transparent; border: none;" name="deleteItem" th:value="${photo.id}" type="submit">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="24"
-                                         fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16"
-                                         color="black">
-                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
-                                    </svg>
-                                </button>
-                                <br><br>
-                                <input type="file" name="filesCarousel">
-                                <br>
-                                <label style="font-size: 14px;">Введите URL:</label>
-                                <input type="hidden" name="photoId" th:value="${photo.id}">
-                                <input type="text" name="Url" th:attr="data-photoId=${photo.id}">
-                                <br>
-                            </div>
+                        <div class="col-lg-4" style="text-align: center" th:each="photo : ${carouselItems}">
+                            <br>
+                            <img class="preview" th:src="@{${photo.path}}" style="width: 130px; height: 160px; ">
+                            <button style="position: absolute; top: 9px; left: 125px; background: transparent; border: none;"
+                                    name="deleteItem" th:value="${photo.id}" type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="24"
+                                     fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16"
+                                     color="black">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                                </svg>
+                            </button>
+                            <br><br>
+                            <input type="file" name="filesCarousel">
+                            <br>
+                            <label>Или URL изображения из интернета:</label>
+                            <input type="hidden" name="photoId" th:value="${photo.id}">
+                            <input type="text" name="Url" th:attr="data-photoId=${photo.id}">
+                            <br>
+                            <label>URL-ссылка:</label>
+                            <br>
+                            <input type="text" name="Url-link" th:attr="data-photoId=${photo.id}"
+                                   th:value="${photo.link}">
+                            <br>
                         </div>
                         <div class="col-lg-2" style="padding-top: 80px">
                             <input type="file" name="filesCarousel">
@@ -64,54 +63,93 @@
                         </div>
                     </div>
 
-                    <div class="text-center">
+                    <div class="text-center" style="padding-right: 40px">
                         <br>
+                        <select name="speedCarousel">
+                            <option value="">Скорость вращения</option>
+                            <option value="1">1с</option>
+                            <option value="2">2с</option>
+                            <option value="3">3с</option>
+                            <option value="4">4с</option>
+                            <option value="5">5с</option>
+                        </select>
                         <button type="submit" class="btn btn-primary" style="margin-bottom: 20px">Сохранить</button>
                         <br>
                     </div>
                 </form>
             </div>
-
+        </div>
+        <div class="content-header">
             <h1 style="text-align: center;">Сквозной баннер на заднем фоне</h1>
+        </div>
+        <div class="container-fluid">
             <div class="card">
-                <form action="/admin/banners/background" method="post" enctype="multipart/form-data">
-                    <div class="form-group" style="padding-left: 40px">
-                        <br>
-                        <img class="preview" id="previewImage" th:src="${backgroundImg}"
-                             style="width: 124px; height: 64px">
-                        <!--                            <img th:src="${imageUrl}" alt="Загруженное изображение" style="width: 124px; height: 64px">-->
+                <form th:action="@{/admin/banners/background}" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-3">
+                            <br>
+                            <br>
+                            <input type="radio" name="background_selection" value=true
+                                   th:checked="${backgroundSelectionImg==true}">
+                            <label>Фото на фоне</label>
+                            <br>
+                            <input type="radio" name="background_selection" value=false
+                                   th:checked="${backgroundSelectionImg==false}">
+                            <label>Просто фон</label>
+                        </div>
+                        <div class="col-9">
+                            <div class="form-group" style="padding-left: 40px">
+                                <br>
+                                <img class="preview" id="previewImage" th:src="@{${backgroundImg}}"
+                                     style="width: 124px; height: 64px">
+                                <!--                            <img th:src="${imageUrl}" alt="Загруженное изображение" style="width: 124px; height: 64px">-->
+                                <br><br>
+                                <input type="file" name="file" id="fileInput" onchange="updatePreviewImage(this)">
+                                <br>
+                            </div>
+                        </div>
                         <br><br>
-                        <input type="file" name="file" id="fileInput" onchange="updatePreviewImage(this)">
-                        <br><br>
-                        <button type="submit" class="btn btn-primary" id="uploadButton">Загрузить</button>
+                        <button type="submit" class="btn btn-primary mx-auto" id="uploadButton" >Загрузить</button>
                         <br>
                     </div>
                 </form>
             </div>
-
+        </div>
+        <div class="content-header">
             <h1 style="text-align: center;"> На главной Новости Акции вницу</h1>
+        </div>
+        <div class="container-fluid">
             <div class="card">
-                <form action="/admin/banners/newsStocks" method="post" enctype="multipart/form-data">
+                <form th:action="@{/admin/banners/newsStocks}" method="post" enctype="multipart/form-data">
+                    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success" style="text-align: right; padding-right: 30px; padding-top: 10px">
+                        <input type="checkbox" class="custom-control-input" id="customSwitch2" name="switchValue"
+                               value=true
+                               th:checked="${NewsStocks.get(0).backgroundSelection}">
+                        <label class="custom-control-label" for="customSwitch2"></label>
+                    </div>
                     <div class="row justify-content-center">
-                        <div th:each="photo : ${NewsStocks}">
-                            <div class="col-lg-2">
-                                <br>
-                                <img class="preview" th:src="${photo.path}" style="width: 130px; height: 160px; ">
-                                <button style="position: absolute; top: 9px; left: 125px; background: transparent; border: none;" name="deleteItem" th:value="${photo.id}" type="submit">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="24"
-                                         fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16"
-                                         color="black">
-                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
-                                    </svg>
-                                </button>
-                                <br><br>
-                                <input type="file" name="filesCarousel">
-                                <br>
-                                <label style="font-size: 14px;">Введите URL:</label>
-                                <input type="hidden" name="photoId" th:value="${photo.id}">
-                                <input type="text" name="Url" th:attr="data-photoId=${photo.id}">
-                                <br>
-                            </div>
+                        <div class="col-lg-4" style="text-align: center" th:each="photo : ${NewsStocks}">
+                            <br>
+                            <img class="preview" th:src="@{${photo.path}}" style="width: 130px; height: 160px; ">
+                            <button style="position: absolute; top: 9px; left: 125px; background: transparent; border: none;"
+                                    name="deleteItem" th:value="${photo.id}" type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="24"
+                                     fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16"
+                                     color="black">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                                </svg>
+                            </button>
+                            <br><br>
+                            <input type="file" name="filesCarousel">
+                            <br>
+                            <label>Или URL изображения из интернета:</label>
+                            <input type="hidden" name="photoId" th:value="${photo.id}">
+                            <input type="text" name="Url" th:attr="data-photoId=${photo.id}">
+                            <br>
+                            <label>URL-ссылка:</label>
+                            <br>
+                            <input type="text" name="Url-link" th:attr="data-photoId=${photo.id}">
+                            <br>
                         </div>
                         <div class="col-lg-2" style="padding-top: 80px">
                             <input type="file" name="filesCarousel">
@@ -123,15 +161,20 @@
 
                     <div class="text-center">
                         <br>
+                        <select name="speedNewsStocks">
+                            <option value="">Скорость вращения</option>
+                            <option value="1">1с</option>
+                            <option value="2">2с</option>
+                            <option value="3">3с</option>
+                            <option value="4">4с</option>
+                            <option value="5">5с</option>
+                        </select>
                         <button type="submit" class="btn btn-primary" style="margin-bottom: 20px">Сохранить</button>
                         <br>
                     </div>
                 </form>
             </div>
-
-
-
-        </section>
+        </div>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -27,16 +27,16 @@
     <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
+<div th:insert="public/blocks/entryPanel :: entryPanel"></div>
+
 <div class="wrapper">
     <div th:insert="admin/blocks/sidebarMenu :: sidebarMenu"></div>
     <div class="content-wrapper">
-        <div class="card">
-            <br>
+        <div class="content-header">
             <div class="row">
                 <div class="col-lg-2">
                 </div>
                 <div class="col-lg-8">
-
                     <h1 style="text-align: center">Список акций</h1>
                 </div>
                 <div class="col-lg-2">
@@ -45,8 +45,10 @@
                     </a>
                 </div>
             </div>
+        </div>
+        <div class="container-fluid">
+        <div class="card">
             <br>
-
             <table th:if="${news!=null}">
                 <thead>
                 <tr>
@@ -56,9 +58,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="us : ${news}" >
+                <tr th:each="us,i : ${news}" >
                     <td th:text="${us.name}"></td>
-                    <td th:text="${us.date}"></td>
+                    <td th:text="${dateList.get(i.index)}"></td>
                     <td th:text="${us.status}"></td>
                     <td>
                         <a th:href="@{/admin/stocks/{id}(id=${us.id})}">
@@ -75,6 +77,7 @@
                 </tbody>
             </table>
 
+        </div>
         </div>
     </div>
 </div>

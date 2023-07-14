@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Data
 @Entity
-@Table(name = "film", schema = "my_project")
+@Table(name = "film")
 public class FilmEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

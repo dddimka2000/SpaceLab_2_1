@@ -17,4 +17,10 @@ public class ImagineEntity {
     String name;
     @Column(name = "path")
     String path;
+    @Column(name = "background_selection")
+    Boolean backgroundSelection;
+    @Column(name = "speed")
+    Integer speed;
+    @Column(name="link")
+    String link;
 }

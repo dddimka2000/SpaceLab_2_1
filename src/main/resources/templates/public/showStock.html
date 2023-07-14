@@ -8,19 +8,45 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<div class="row">
-    <div class="col-lg-3">
-        <!--        <div class="position-fixed top-0 start-0" style="height: 100vh;display: block">-->
-        <!--            <div th:insert="blocks/dashboard :: dashboard" style="height: 100%;"></div>-->
-        <!--        </div>-->
-    </div>
-    <div class="col-lg-9">
-        <div th:insert="public/blocks/search :: search" style="padding-top: 20px;"></div>
-        <div th:insert="public/blocks/navigate :: navigate"></div>
-    </div>
+<div th:insert="public/blocks/entryPanel :: entryPanel" style="padding-top:10px"></div>
+
+<div style="text-align: center">
+    <div th:insert="public/blocks/search :: search" style="padding-top: 20px;"></div>
+    <div th:insert="public/blocks/navigate :: navigate"></div>
 </div>
-<g transform="matrix(1 0 0 1 0 139)" class="stencil"><svg width="1160" height="387" x="0.5" y="0.5" class="" style="opacity: 1;"><defs></defs><path d="M0 0 L1160 0 C1160 0 1160 0 1160 0 L1160 387 C1160 387 1160 387 1160 387 L0 387 C0 387 0 387 0 387 L0 0 C0 0 0 0 0 0 Z" stroke-width="0" stroke="none" stroke-dasharray="none" fill="#E6E6E6"></path><path d="M699.7126921347909 150.6793031717981C699.7126921347909 172.08965158589905 681.7198514480574 189.93160859764987 660.1284426239773 189.93160859764987 638.5370337998971 189.93160859764987 622.3434771818371 170.30545588472395 622.3434771818371 150.6793031717981 622.3434771818371 129.26895475769714 638.5370337998972 111.42699774594634 660.1284426239773 111.42699774594634 681.7198514480574 111.42699774594634 699.7126921347909 129.26895475769714 699.7126921347909 150.6793031717981 699.7126921347909 150.6793031717981 699.7126921347909 150.6793031717981 699.7126921347909 150.6793031717981M609.7484887011237 193.5C600.752068357757 179.22643439059937 586.3577958083702 179.22643439059937 577.3613754650034 193.5 577.3613754650034 193.5 575.5620913963302 195.28419570117507 575.5620913963302 195.28419570117507 568.3649551216367 184.57902149412462 561.1678188469434 172.08965158589905 555.7699666409234 161.38447737884857 543.17497816021 139.97412896474762 523.3828534048032 139.97412896474762 510.7878649240898 161.38447737884857 498.19287644337635 182.79482579294952 478.40075168796955 216.69454411527605 465.8057632072562 238.10489252937697 453.21077472654275 259.515240943478 464.0064791385828 275.5730022540537 489.19645610000964 275.5730022540537 489.19645610000964 275.5730022540537 627.7413293878571 275.5730022540537 627.7413293878571 275.5730022540537 645.7341700745906 275.5730022540537 652.9313063492839 264.8678280470032 643.9348860059172 248.81006673642747 634.9384656625505 232.75230542585174 620.5441931131638 209.5577613105757 609.7484887011237 193.5 609.7484887011237 193.5 609.7484887011237 193.5 609.7484887011237 193.5" fill="#B3B3B3" fill-rule="evenOdd"></path></svg></g>
 <br>
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" height="327"
+     width="440.0585106382979">
+    <div class="carousel-inner">
+        <div th:each="us,i:${carouselItems}">
+            <div th:if="${i.index==0}">
+                <div class="carousel-item active">
+                    <img th:src="@{${us}}" class="d-block w-100" style="height: 600px">
+                </div>
+            </div>
+            <div th:unless="${i.index==0}">
+                <div class="carousel-item">
+                    <img th:src="@{${us}}"
+                         class="d-block w-100" style="height: 600px">
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+            data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+            data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+<br>
+<div th:if="${!info.link.blank}">
+    <iframe width="560" height="315" th:src="@{${info.link}}" frameborder="0" allowfullscreen=""></iframe>
+</div>
 <br>
 <div class="row">
     <div class="col-10" style="padding-left: 40px">
@@ -30,11 +56,9 @@
             <text style="background-color: #a861fd; color: white;border-radius: 5px;">Dream Town</text>
             <div class="row">
                 <div class="col-5">
-                    <a th:href="'/stock/'+${info.id}">
                         <div th:if="${info.img!=null}">
-                            <img height="397" width="329" th:src="${info.img}"  style="border-radius: 20px">
+                            <img height="397" width="329" th:src="@{${info.img}}"  style="border-radius: 20px">
                         </div>
-                    </a>
                 </div>
                 <div class="col-7">
                     <p th:text="${info.description}" style="color: grey"></p>

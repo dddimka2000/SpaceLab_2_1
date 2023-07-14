@@ -18,7 +18,7 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-
+    <div th:insert="public/blocks/entryPanel :: entryPanel"></div>
     <div th:insert="admin/blocks/sidebarMenu :: sidebarMenu"></div>
     <div class="content-wrapper">
         <section class="content mx-auto" style=" width: 1000px;">
@@ -71,7 +71,7 @@
                         <br>
                         <br>
                         <div th:if="${us.logo!=null}">
-                            <img th:src="${us.logo}" width="100px" height="100px">
+                            <img th:src="@{${us.logo}}" width="100px" height="100px">
                         </div>
                         <br>
                         <label>Лого</label>

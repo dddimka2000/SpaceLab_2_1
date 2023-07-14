@@ -43,4 +43,5 @@ public class NewsEntity {
     private Boolean status;
     @Column
     private Date date;
+ 
 }

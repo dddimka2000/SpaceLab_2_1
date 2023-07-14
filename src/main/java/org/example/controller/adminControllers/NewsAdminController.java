@@ -4,6 +4,7 @@ import lombok.extern.log4j.Log4j2;
 import org.example.model.NewsEntity;
 import org.example.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,18 +14,20 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin/news")
 @Log4j2
 public class NewsAdminController {
-    String path = "C:\\Users\\User\\IdeaProjects\\SpaceLab_2_1\\src\\main\\resources\\static\\img\\";
+    @Value("${spring.regex}")
+    String regex;
+    @Value("${spring.pathImg}")
+    String path;
 
     final
     NewsService newsService;
@@ -33,10 +36,27 @@ public class NewsAdminController {
     public NewsAdminController(NewsService newsService) {
         this.newsService = newsService;
     }
+    SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @GetMapping
     public String showNews(Model model) {
+
+        List<String> dateList = new ArrayList<>();
         List<NewsEntity> newsEntities = newsService.findAll();
+        newsService.findAll()
+                .stream()
+                .forEach(newsEntity -> {
+                    String dateString = newsEntity.getDate().toString();
+                    try {
+                        Date date = inputFormat.parse(dateString);
+                        String formattedDate = outputFormat.format(date);
+                        dateList.add(formattedDate);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                });
+        model.addAttribute("dateList", dateList);
         model.addAttribute("news", newsEntities);
         return "/admin/news/news";
     }
@@ -44,6 +64,15 @@ public class NewsAdminController {
     @GetMapping("/{id}")
     public String showModelNews(@PathVariable Integer id, Model model) {
         NewsEntity newsEntity = newsService.findById(id).get();
+        String dateString =newsEntity.getDate().toString();
+        String formattedDate=null;
+        try {
+            Date date = inputFormat.parse(dateString);
+            formattedDate= outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("getDate",formattedDate);
         model.addAttribute("info", newsEntity);
         return "/admin/news/editNews";
     }
@@ -77,7 +106,7 @@ public class NewsAdminController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        String mainImaginePath = "/photos/" + resultFilename;
+        String mainImaginePath = regex + resultFilename;
 
         newsEntity.setImg(mainImaginePath);
 
@@ -93,7 +122,7 @@ public class NewsAdminController {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                img = "/photos/" + resultFilename;
+                img = regex + resultFilename;
                 setImgMethod = newsEntity.getClass().getMethod("setImg" + setImgNum, String.class);
                 setImgMethod.invoke(newsEntity, img);
             }
@@ -153,7 +182,7 @@ public class NewsAdminController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        String mainImaginePath = "/photos/" + resultFilename;
+        String mainImaginePath = regex + resultFilename;
 
         newsEntity.setImg(mainImaginePath);
 
@@ -169,7 +198,7 @@ public class NewsAdminController {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                img = "/photos/" + resultFilename;
+                img = regex + resultFilename;
                 setImgMethod = newsEntity.getClass().getMethod("setImg" + setImgNum, String.class);
                 setImgMethod.invoke(newsEntity, img);
             }

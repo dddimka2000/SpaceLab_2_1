@@ -18,7 +18,7 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-
+    <div th:insert="public/blocks/entryPanel :: entryPanel"></div>
     <div th:insert="admin/blocks/sidebarMenu :: sidebarMenu"></div>
     <div class="content-wrapper">
         <section class="content mx-auto" style=" width: 1000px;">
@@ -31,10 +31,10 @@
                     <div th:each="cinema: ${listCinema}">
                         <div class="col-lg-3" style="text-align: center">
                             <br>
-                            <a th:href="'/admin/cinemas/edit/'+${cinema.idCinema}">
-                                <img th:src="${cinema.logoPath}" width="240" height="150">
+                            <a th:href=  "@{/admin/cinemas/edit/{idCinema}(idCinema=${cinema.idCinema})}">
+                                <img th:src="@{${cinema.logoPath}}" width="240" height="150">
                             </a>
-                            <form enctype="multipart/form-data" th:action="'/admin/cinemas/'+${cinema.idCinema}+'/delete'" method="post">
+                            <form enctype="multipart/form-data" th:action="@{/admin/cinemas/{idCinema}/delete(idCinema=${cinema.idCinema})}" method="post">
                             <button style="position: absolute; top: 9px; left: 230px; background: transparent; border: none;"  type="submit">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="23" height="24"
                                      fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16"

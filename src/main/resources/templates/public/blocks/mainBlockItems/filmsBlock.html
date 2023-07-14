@@ -4,7 +4,7 @@
     </div>
     <div class="row">
         <div class="col-lg-3" style="text-align: center;"  th:each="us,i:${filmsNow}">
-            <img th:src="${us.img}" style="height: 280px;width: 200px">
+            <img th:src="@{${us.img}}" style="height: 280px;width: 200px">
             <h1 th:text="${us.name}">Film</h1>
             <button type="button" class="btn btn-outline-success">Купить билет</button>
             <div th:if="${(i.index + 1) % 4 == 0}"><br></div>
@@ -15,7 +15,7 @@
     </div>
     <div class="row">
         <div class="col-lg-3" style="text-align: center;"  th:each="us,i:${filmsSoon}">
-            <img th:src="${us.img}" style="height: 280px;width: 200px">
+            <img th:src="@{${us.img}}" style="height: 280px;width: 200px">
             <h1 th:text="${us.name}">Film</h1>
             <h5 style="color: green">Скоро</h5>
             <div th:if="${(i.index + 1) % 4 == 0}"><br></div>

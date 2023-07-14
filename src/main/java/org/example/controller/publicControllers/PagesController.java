@@ -3,14 +3,19 @@ package org.example.controller.publicControllers;
 import lombok.extern.log4j.Log4j2;
 import org.example.model.NewsEntity;
 import org.example.model.PageEntity;
+import org.example.model.StockEntity;
 import org.example.service.NewsService;
 import org.example.service.pages.ContactsCinemaService;
 import org.example.service.pages.NewPageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -21,6 +26,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -40,20 +46,23 @@ public class PagesController {
         this.contactsCinemaService = contactsCinemaService;
     }
 
-    @GetMapping("/mobileApplications")
+    @GetMapping("/pages/mobileApplications")
     public String showMobileApplicationsPagePublic() {
         return "public/pages/mobileApplications";
     }
 
-    @GetMapping("/news")
-    public String showNewsPagePublic(Model model) {
+    @GetMapping("/pages/news")
+    public String showNewsPagePublic(Model model,@RequestParam(defaultValue = "0") int page) {
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        List<String> dateList = new ArrayList<>();
-        List<NewsEntity> newsEntities = newsService.findAll().stream().filter(newsEntity -> newsEntity.getStatus() == true).collect(Collectors.toList());
+        int pageSize = 3;
 
-        newsService.findAll()
+        Page<NewsEntity> userPage = newsService.findAllPageByStatus(true, page, pageSize);
+
+        List<String> dateList = new ArrayList<>();
+
+        userPage.getContent()
                 .stream()
                 .forEach(newsEntity -> {
                     String dateString = newsEntity.getDate().toString();
@@ -65,12 +74,25 @@ public class PagesController {
                         e.printStackTrace();
                     }
                 });
-        model.addAttribute("news", newsEntities);
+
+        model.addAttribute("news", userPage.getContent());
         model.addAttribute("dateList", dateList);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", userPage.getTotalPages());
         return "public/pages/news";
     }
 
-    @GetMapping("/Кафе - Бар")
+
+
+
+    @PostMapping("/pages/news")
+    public String nextPageUsers(@RequestParam("page") int page) {
+        return "redirect:/pages/news?page=" + page;
+    }
+
+
+
+    @GetMapping("/pages/Кафе - Бар")
     public String showBarPagePublic(Model model) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         PageEntity page = newPageService.findByName("Кафе - Бар").get();
         model.addAttribute("info", page);
@@ -86,18 +108,31 @@ public class PagesController {
         return "public/pages/barShow";
     }
 
-    @GetMapping("/news/{id}")
-    public String showNewsIdPagePublic(Model model, @PathVariable Integer id) {
+    @GetMapping("/pages/news/{id}")
+    public String showNewsIdPagePublic(Model model, @PathVariable Integer id) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         model.addAttribute("info", newsService.findById(id).get());
+
+        NewsEntity stockEntityCarousel = newsService.findById(id).get();
+        List<String> carousel = new ArrayList<>();
+        for (int i = 1; i < 5; i++) {
+            Method getImgMethod = stockEntityCarousel.getClass().getMethod("getImg" + i);
+            if (getImgMethod.invoke(stockEntityCarousel) != null) {
+                carousel.add((String) getImgMethod.invoke(stockEntityCarousel));
+                log.warn((String) getImgMethod.invoke(stockEntityCarousel));
+            }
+        }
+        model.addAttribute("carouselItems", carousel);
+
         return "public/pages/showNews";
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("/pages/{name}")
     public String showPagesPublic(Model model, @PathVariable String name) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        model.addAttribute("info", newPageService.findByName(name).get());
+        Optional<PageEntity> findPage=newPageService.findByName(name);
+        model.addAttribute("info", findPage.get());
 
         List<String> carousel = new ArrayList<>();
-        PageEntity filmEntity = newPageService.findByName(name).get();
+        PageEntity filmEntity = findPage.get();
 
         for (int i = 1; i < 5; i++) {
             Method getImgMethod = filmEntity.getClass().getMethod("getImg" + i);
@@ -109,12 +144,12 @@ public class PagesController {
         return "public/pages/showPage";
     }
 
-    @GetMapping("/О кинотеатре")
-    public String showAboutCinemaPagePublic() {
-        return "public/pages/aboutCinemaShow";
-    }
+//    @GetMapping("/pages/О кинотеатре")
+//    public String showAboutCinemaPagePublic() {
+//        return "public/pages/aboutCinemaShow";
+//    }
 
-    @GetMapping("/Контакты")
+    @GetMapping("/pages/Контакты")
     public String showContactsPagePublic(Model model) {
         model.addAttribute("contacts", contactsCinemaService.findAll().stream().filter(cinemaEntity -> cinemaEntity.getStatus() == true).collect(Collectors.toList()));
 

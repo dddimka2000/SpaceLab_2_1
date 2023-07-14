@@ -1,10 +1,12 @@
 package org.example.controller.adminControllers;
 
+import lombok.extern.log4j.Log4j2;
 import org.example.model.CinemaEntity;
 import org.example.model.HallEntity;
 import org.example.service.CinemaService;
 import org.example.service.HallService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -21,8 +24,12 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin/cinemas")
+@Log4j2
 public class CinemaAdminController {
-    private String path = "C:\\Users\\User\\IdeaProjects\\SpaceLab_2_1\\src\\main\\resources\\static\\img\\";
+    @Value("${spring.regex}")
+    String regex;
+    @Value("${spring.pathImg}")
+    String path;
     int id = 1;
     private final
     CinemaService cinemaService;
@@ -91,7 +98,7 @@ public String deleteCinema(@PathVariable Integer idCinema){
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            name = "/photos/" + resultFilename;
+            name = regex + resultFilename;
             hallEntity.setSchemeHall(resultFilename);
         }
         if (!mainImagine.isEmpty() && mainImagine != null) {
@@ -101,8 +108,8 @@ public String deleteCinema(@PathVariable Integer idCinema){
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            name = "/photos/" + resultFilename;
-            hallEntity.setTopBanner(resultFilename);
+            name = regex + resultFilename;
+            hallEntity.setTopBanner(name);
         }
 
         Method setImgMethod;
@@ -115,7 +122,7 @@ public String deleteCinema(@PathVariable Integer idCinema){
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                name = "/photos/" + resultFilename;
+                name = regex + resultFilename;
                 setImgMethod = hallEntity.getClass().getMethod("setImg" + setImgNum, String.class);
                 setImgMethod.invoke(hallEntity, name);
             }
@@ -161,8 +168,8 @@ public String deleteCinema(@PathVariable Integer idCinema){
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            name = "/photos/" + resultFilename;
-            hallEntity.setSchemeHall(resultFilename);
+            name = regex + resultFilename;
+            hallEntity.setSchemeHall(name);
         }
         if (!mainImagine.isEmpty() && mainImagine != null) {
             resultFilename = UUID.randomUUID().toString() + mainImagine.getOriginalFilename();
@@ -171,8 +178,8 @@ public String deleteCinema(@PathVariable Integer idCinema){
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            name = "/photos/" + resultFilename;
-            hallEntity.setTopBanner(resultFilename);
+            name = regex + resultFilename;
+            hallEntity.setTopBanner(name);
         }
 
         Method setImgMethod;
@@ -185,7 +192,7 @@ public String deleteCinema(@PathVariable Integer idCinema){
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                name = "/photos/" + resultFilename;
+                name = regex + resultFilename;
                 setImgMethod = hallEntity.getClass().getMethod("setImg" + setImgNum, String.class);
                 setImgMethod.invoke(hallEntity, name);
             }
@@ -246,8 +253,8 @@ public String deleteCinema(@PathVariable Integer idCinema){
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            name = "/photos/" + resultFilename;
-            cinemaEntity.setLogoPath(resultFilename);
+            name = regex + resultFilename;
+            cinemaEntity.setLogoPath(name);
         }
         if (!mainImagine.isEmpty() && mainImagine != null) {
             resultFilename = UUID.randomUUID().toString() + mainImagine.getOriginalFilename();
@@ -256,8 +263,8 @@ public String deleteCinema(@PathVariable Integer idCinema){
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            name = "/photos/" + resultFilename;
-            cinemaEntity.setTopBannerPath(resultFilename);
+            name = regex + resultFilename;
+            cinemaEntity.setTopBannerPath(name);
         }
 
         Method setImgMethod;
@@ -270,7 +277,7 @@ public String deleteCinema(@PathVariable Integer idCinema){
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                name = "/photos/" + resultFilename;
+                name = regex + resultFilename;
                 setImgMethod = cinemaEntity.getClass().getMethod("setImg" + setImgNum, String.class);
                 setImgMethod.invoke(cinemaEntity, name);
             }
@@ -323,7 +330,7 @@ public String deleteCinema(@PathVariable Integer idCinema){
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            name = "/photos/" + resultFilename;
+            name = regex + resultFilename;
             hallEntity.setSchemeHall(name);
         }
         if (!mainImagine.isEmpty() && mainImagine != null) {
@@ -333,7 +340,7 @@ public String deleteCinema(@PathVariable Integer idCinema){
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            name = "/photos/" + resultFilename;
+            name = regex + resultFilename;
             hallEntity.setTopBanner(name);
         }
 
@@ -347,7 +354,7 @@ public String deleteCinema(@PathVariable Integer idCinema){
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                name = "/photos/" + resultFilename;
+                name = regex + resultFilename;
                 setImgMethod = hallEntity.getClass().getMethod("setImg" + setImgNum, String.class);
                 setImgMethod.invoke(hallEntity, name);
             }
@@ -364,6 +371,7 @@ public String deleteCinema(@PathVariable Integer idCinema){
     //show
     @GetMapping
     public String cinemasAdmin(Model model) {
+        log.info(path);
         List<CinemaEntity> cinemas = cinemaService.findAll();
         if (!cinemas.isEmpty()) {
             cinemas.remove(cinemas.size() - 1);
@@ -414,7 +422,7 @@ public String deleteCinema(@PathVariable Integer idCinema){
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            name = "/photos/" + resultFilename;
+            name = regex + resultFilename;
             hallEntity.setSchemeHall(name);
         }
         if (!mainImagine.isEmpty() && mainImagine != null) {
@@ -424,7 +432,7 @@ public String deleteCinema(@PathVariable Integer idCinema){
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            name = "/photos/" + resultFilename;
+            name = regex + resultFilename;
             hallEntity.setTopBanner(name);
         }
 
@@ -438,7 +446,7 @@ public String deleteCinema(@PathVariable Integer idCinema){
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                name = "/photos/" + resultFilename;
+                name = regex + resultFilename;
                 setImgMethod = hallEntity.getClass().getMethod("setImg" + setImgNum, String.class);
                 setImgMethod.invoke(hallEntity, name);
             }
@@ -498,10 +506,12 @@ public String deleteCinema(@PathVariable Integer idCinema){
             resultFilename = UUID.randomUUID().toString() + logo.getOriginalFilename();
             try {
                 logo.transferTo(new File(path + resultFilename));
+                log.info(path + resultFilename);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            name = "/photos/" + resultFilename;
+            name = regex + resultFilename;
+            log.info(name);
             cinemaEntity.setLogoPath(name);
         }
         if (!mainImagine.isEmpty() && mainImagine != null) {
@@ -511,7 +521,7 @@ public String deleteCinema(@PathVariable Integer idCinema){
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            name = "/photos/" + resultFilename;
+            name = regex + resultFilename;
             cinemaEntity.setTopBannerPath(name);
         }
 
@@ -525,7 +535,7 @@ public String deleteCinema(@PathVariable Integer idCinema){
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                name = "/photos/" + resultFilename;
+                name = regex + resultFilename;
                 setImgMethod = cinemaEntity.getClass().getMethod("setImg" + setImgNum, String.class);
                 setImgMethod.invoke(cinemaEntity, name);
             }

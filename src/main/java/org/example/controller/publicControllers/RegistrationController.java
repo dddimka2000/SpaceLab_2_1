@@ -16,12 +16,12 @@ public class RegistrationController {
 
     private final UserRepository userRepository;
 
-    @GetMapping("/registration")
+    @GetMapping("/auth/registration")
     public String showRegistrationForm() {
         return "/auth/registration";
     }
 
-    @PostMapping("/registration")
+    @PostMapping("/auth/registration")
     public String registration( @RequestParam("username") String username,
                                 @RequestParam("password") String password,
                                @RequestParam("name") String name,
@@ -36,6 +36,7 @@ public class RegistrationController {
             user.setSurname(surname);
             user.setTelephone(telephone);
             user.setEMail(email);
+            user.setGender(true);
             userRepository.save(user);
         } catch (Exception e) {
             model.addAttribute("errorMessage", "Произошла ошибка");

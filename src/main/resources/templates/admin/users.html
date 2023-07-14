@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,77 +27,84 @@
     <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
+<div th:insert="public/blocks/entryPanel :: entryPanel" style="padding-top:10px"></div>
 <div class="wrapper">
     <div th:insert="admin/blocks/sidebarMenu :: sidebarMenu"></div>
     <div class="content-wrapper">
-        <h1 style="text-align: center">На главной верх</h1>
-        <div class="card">
-            <h1>User List</h1>
-            <table>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>log</th>
-                    <th>pass</th>
-                    <th>Name</th>
-                    <th>Surname</th>
-                    <th>Telephone</th>
-                    <th>Email</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="us : ${users}">
-                    <td th:text="${us.idUser}"></td>
-                    <td th:text="${us.password}"></td>
-                    <td th:text="${us.log}"></td>
-                    <td th:text="${us.name}"></td>
-                    <td th:text="${us.surname}"></td>
-                    <td th:text="${us.telephone}"></td>
-                    <td th:text="${us.eMail}"></td>
-                    <td><a th:href="'/admin/users/'+${us.idUser}" class="btn btn-warning">Edit</a></td>
-                    <td>
-                        <form th:action="'/admin/users/'+${us.idUser}+'/delete'" method="post">
-                            <button type="submit" class="btn btn-primary">Удалить</button>
-                        </form>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <div th:if="${successMessage}">
-                <span th:text="${successMessage}" style="color: green"></span>
+        <div class="content-header">
+            <h1 style="text-align: center">Пользователи</h1>
+        </div>
+        <div class="container-fluid">
+            <div class="card">
+<!--                <section class="content">-->
+                    <h1>User List</h1>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>log</th>
+                            <th>pass</th>
+                            <th>Name</th>
+                            <th>Surname</th>
+                            <th>Telephone</th>
+                            <th>Email</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="us : ${users}">
+                            <td th:text="${us.idUser}"></td>
+                            <td th:text="${us.password}"></td>
+                            <td th:text="${us.log}"></td>
+                            <td th:text="${us.name}"></td>
+                            <td th:text="${us.surname}"></td>
+                            <td th:text="${us.telephone}"></td>
+                            <td th:text="${us.eMail}"></td>
+                            <td><a th:href="@{/admin/users/{id}(id=${us.idUser})}" class="btn btn-warning">Edit</a>
+                            </td>
+                            <td>
+                                <form th:action="@{/admin/users/{id}/delete(id=${us.idUser})}" method="post">
+                                    <button type="submit" class="btn btn-primary">Удалить</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div th:if="${successMessage}">
+                        <span th:text="${successMessage}" style="color: green"></span>
+                    </div>
+                    <div th:if="${errorMessage}">
+                        <span th:text="${errorMessage}" style="color: red"></span>
+                    </div>
+                    <!-- users.html -->
+                    <!-- users.html -->
+                    <form method="POST">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous" disabled="0"
+                                       th:href="@{/admin/users(page=0)}">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"
+                                    th:each="pageNumber : ${#numbers.sequence(0, totalPages - 1)}">
+                                    <a class="page-link" href="#" th:href="@{/admin/users(page=${pageNumber})}"
+                                       th:text="${pageNumber + 1}"></a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next"
+                                       th:disabled="${totalPages - 1}"
+                                       th:href="@{/admin/users(page=${totalPages - 1})}">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </form>
+<!--                </section>-->
             </div>
-            <div th:if="${errorMessage}">
-                <span th:text="${errorMessage}" style="color: red"></span>
-            </div>
-            <!-- users.html -->
-            <!-- users.html -->
-            <form method="POST">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous" disabled="0"
-                               th:href="@{/admin/users(page=0)}">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item" th:each="pageNumber : ${#numbers.sequence(0, totalPages - 1)}">
-                                <a class="page-link" href="#" th:href="@{/admin/users(page=${pageNumber})}"
-                                   th:text="${pageNumber + 1}"></a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next"
-                               th:disabled="${totalPages - 1}"
-                               th:href="@{/admin/users(page=${totalPages - 1})}">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </form>
-
-
         </div>
     </div>
-</div>
 </body>
+</head>
 </html>

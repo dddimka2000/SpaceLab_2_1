@@ -41,13 +41,21 @@ public class MainPageController {
 
     @GetMapping("/")
     public String main(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetailsImpl personDetails = (UserDetailsImpl) authentication.getPrincipal();
-        String logUser = personDetails.getUserEntity().getLog();
+        String logUser;
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            UserDetailsImpl personDetails = (UserDetailsImpl) authentication.getPrincipal();
+            logUser = personDetails.getUserEntity().getLog();
+
+        } catch (Exception e) {
+            logUser="";
+        }
+
+
         List<ImagineEntity> imagineEntities = imagineService.findByName("Главная страница");
         List<ImagineEntity> carouselItems = imagineService.findByName("Карусель");
         List<ImagineEntity> newsAndStocks = imagineService.findByName("НовостиАкции");
-        List<FilmEntity> filmEntities=filmService.findAll();
+        List<FilmEntity> filmEntities = filmService.findAll();
         MainPageModel mainModel = new MainPageModel();
         mainModel.setLogUser(logUser);
         if (!imagineEntities.isEmpty()) {
@@ -55,11 +63,12 @@ public class MainPageController {
             log.info("path= " + imagePath);
             mainModel.setImagePath(imagePath);
         }
+        mainModel.setBackgroundSelection(imagineEntities.get(0).getBackgroundSelection());
         model.addAttribute("carouselItems", carouselItems);
         model.addAttribute("mainModel", mainModel);
         model.addAttribute("newsAndStocks", newsAndStocks);
-        model.addAttribute("filmsNow",filmEntities.stream().filter(filmEntity -> filmEntity.getIsUpcoming()==true).collect(Collectors.toList()));
-        model.addAttribute("filmsSoon",filmEntities.stream().filter(filmEntity -> filmEntity.getIsUpcoming()==false).collect(Collectors.toList()));
+        model.addAttribute("filmsNow", filmEntities.stream().filter(filmEntity -> filmEntity.getIsUpcoming() == true).collect(Collectors.toList()));
+        model.addAttribute("filmsSoon", filmEntities.stream().filter(filmEntity -> filmEntity.getIsUpcoming() == false).collect(Collectors.toList()));
         Optional<MainPageEntity> mainPage = mainPageRepository.findById(1);
         model.addAttribute("mainPage", mainPage.get());
         return "public/main";

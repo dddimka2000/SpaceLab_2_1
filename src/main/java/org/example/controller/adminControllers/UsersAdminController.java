@@ -10,7 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +32,7 @@ public class UsersAdminController {
 
     @GetMapping
     public String showUsers(@RequestParam(defaultValue = "0") int page, Model model) {
-        int pageSize = 1;
+        int pageSize = 3;
         Page<UserEntity> userPage = userRepository.findAllPage(page, pageSize);
         List<UserEntity> users = userPage.getContent();
         log.warn(userPage);
@@ -67,9 +70,26 @@ public class UsersAdminController {
                              @RequestParam("name") String name,
                              @RequestParam("surname") String surname,
                              @RequestParam("telephone") String telephone,
-                             @RequestParam("email") String email, Model model) {
+                             @RequestParam("email") String email,
+                             @RequestParam("gender") Boolean gender,
+                             @RequestParam("address") String address,
+                             @RequestParam("city") String city,
+                             @RequestParam(name = "birthday",required = false) Optional<String> birthday,
+                             Model model) {
         try {
             UserEntity user = userRepository.findById(idUser).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + idUser));
+            user.setGender(gender);
+            user.setAddress(address);
+            user.setCity(city);
+            if (birthday.isPresent()&& !birthday.get().isEmpty()) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    Date parsedDate = dateFormat.parse(birthday.get());
+                    user.setBirthday(parsedDate);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+            }
             user.setLog(login);
             user.setPassword(password);
             user.setName(name);
@@ -85,11 +105,11 @@ public class UsersAdminController {
         return "redirect:/admin/users";
     }
 
-    @PostMapping("/{idUser}/delete")
-    public String deleteUser(@PathVariable("idUser") Integer userId, Model model) {
+    @PostMapping("/{id}/delete")
+    public String deleteUser(@PathVariable("id") Integer userId, Model model) {
+        log.info(userId+" delete");
         try {
-            Optional<UserEntity> user = userRepository.findById(userId);
-            userRepository.delete(user.get());
+            userRepository.delete(userId);
             model.addAttribute("successMessage", "Пользователь " + userId + " удален");
         } catch (Exception e) {
             model.addAttribute("errorMessage", "Произошла ошибка");

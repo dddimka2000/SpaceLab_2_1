@@ -11,7 +11,7 @@ public class MainPageModel {
 
     private String logUser;
     private String imagePath;
-
+    private Boolean backgroundSelection;
     public MainPageModel() {
     }
 }

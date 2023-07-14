@@ -1,10 +1,13 @@
 package org.example.controller.adminControllers;
 
 import lombok.extern.log4j.Log4j2;
+import org.example.controller.modelPage.MainPageModel;
 import org.example.model.UserEntity;
 import org.example.repository.SessionRepository;
+import org.example.security.UserDetailsImpl;
 import org.example.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,13 +39,16 @@ public class MainAdminController {
     Map<String,Integer> dateCountMap =new HashMap<>();
 
     @GetMapping("/")
-    public String main(Model model) {
+    public String main(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        MainPageModel mainPageModel=new MainPageModel();
+        mainPageModel.setLogUser(userDetails.getUsername());
+        model.addAttribute("mainModel", mainPageModel);
         List<UserEntity> userEntityList= userDetailsService.findAll();
         model.addAttribute("userSize",userEntityList.size());
         double param=(double) userEntityList.stream().filter(user -> user.getGender()==true).count()/userEntityList.size()*100;
         model.addAttribute("male",(int) param);
         log.info((double)userEntityList.stream().filter(user -> user.getGender()==true).count()/userEntityList.size()*100);
-
+        dateCountMap.clear();
         sessionRepository.findAll().stream().forEach(sessionEntity -> {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Integer count=dateCountMap.getOrDefault(dateFormat.format(sessionEntity.getTime()),0);

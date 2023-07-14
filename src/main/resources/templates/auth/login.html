@@ -15,7 +15,7 @@
     <div class="mb-3 me-3 bd-mode-toggle">
         <img src="https://multiplex.ua/img/logo.svg" alt="Multiplex" title="Multiplex">
     </div>
-    <form class="d-flex flex-column align-items-center" method="post" action="/process_login">
+    <form class="d-flex flex-column align-items-center" method="post" th:action="@{/auth/process_login}">
         <div class="mb-2 me-2 bd-mode-toggle">
             <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
             <div class="form-floating">
@@ -31,7 +31,7 @@
 
             <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
         </div>
-        <a href="/registration"><p class="mt-5 mb-3 text-body-secondary">Registration</p></a>
+        <a th:href="@{/auth/registration}"><p class="mt-5 mb-3 text-body-secondary">Registration</p></a>
         <div th:if="${param.error}" style="color: red">Error</div>
     </form>
 </main>

@@ -49,42 +49,14 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item menu-is-opening menu-open">
+                    <li class="nav-item">
                         <a th:href="@{/admin/pages}" class="nav-link">
                             <p>
                                 Страницы
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview" style="display: block;">
-                            <li class="nav-item">
-                                <a th:href="@{/admin/pages/main}" class="nav-link">
-                                    <p th:text="${mainPage.namePage}">
-                                    </p>
-                                </a>
-                            </li>
-
-                            <li class="nav-item" th:each="us:${otherPages}">
-                                <a th:href="@{/admin/pages/{name}(name=${us.name})}" class="nav-link">
-                                    <p th:text="${us.name}">
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a th:href="@{/admin/pages/contacts}" class="nav-link">
-                                    <p th:text="${contactsPage.namePage}">
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item" th:each="us:${newPages}">
-                                <a th:href="@{/admin/pages/{name}(name=${us.name})}" class="nav-link">
-                                    <p th:text="${us.name}">
-                                    </p>
-                                </a>
-                            </li>
-                            </li>
-                        </ul>
-
+                    </li>
                     <li class="nav-item">
                         <a th:href="@{/admin/users}" class="nav-link">
                             <p>

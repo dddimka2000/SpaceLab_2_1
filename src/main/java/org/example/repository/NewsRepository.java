@@ -1,6 +1,9 @@
 package org.example.repository;
 
 import org.example.model.NewsEntity;
+import org.example.model.StockEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -20,4 +23,9 @@ public interface NewsRepository extends JpaRepository<NewsEntity, Integer> {
 
     @Override
     void delete(NewsEntity entity);
+
+    @Override
+    Page<NewsEntity> findAll(Pageable pageable);
+    Page<NewsEntity> findByStatus(Boolean status, Pageable pageable);
+
 }

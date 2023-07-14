@@ -20,4 +20,10 @@ public interface SessionRepository extends JpaRepository<SessionEntity, Integer>
     Optional<SessionEntity> findById(Integer integer);
 
     List<SessionEntity> findByUser(UserEntity user);
+
+    @Override
+    void deleteById(Integer integer);
+
+    @Override
+    void delete(SessionEntity entity);
 }

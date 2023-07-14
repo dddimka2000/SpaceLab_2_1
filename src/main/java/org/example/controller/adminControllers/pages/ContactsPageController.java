@@ -6,6 +6,7 @@ import org.example.model.MainPageEntity;
 import org.example.service.pages.ContactsCinemaService;
 import org.example.service.pages.MainPageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -25,7 +27,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/admin/pages/contacts")
 @Log4j2
 public class ContactsPageController {
-    String path = "C:\\Users\\User\\IdeaProjects\\SpaceLab_2_1\\src\\main\\resources\\static\\img\\";
+    @Value("${spring.regex}")
+    String regex;
+    @Value("${spring.pathImg}")
+    String path;
     final
     ContactsCinemaService contactsCinemaService;
     final
@@ -96,7 +101,7 @@ public class ContactsPageController {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                dbNameLogo = "/photos/" + resultFilename;
+                dbNameLogo = regex + resultFilename;
                 contactCinemaEntity.setLogo(dbNameLogo);
             }
             i++;

@@ -19,12 +19,12 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-
+    <div th:insert="public/blocks/entryPanel :: entryPanel"></div>
     <div th:insert="admin/blocks/sidebarMenu :: sidebarMenu"></div>
     <div class="content-wrapper">
         <section class="content mx-auto" style=" width: 1000px;">
             <h1 style="text-align: center;"> Создание нового зала</h1>
-            <form id="edit-publicMain-form" method="post" action="/admin/cinemas/newCinema/newHall"
+            <form id="edit-publicMain-form" method="post" th:action="@{/admin/cinemas/newCinema/newHall}"
                   enctype="multipart/form-data">
                 <div class="row" style="padding-top: 40px">
                     <div class="col-lg-2">

@@ -43,6 +43,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         loginHistory.setIpAddress(ipAddress);
         loginHistory.setUser(userDetailsService.findByLog(username).get());
         sessionRepository.save(loginHistory);
-        response.sendRedirect("/");
+        response.sendRedirect("/SpaceLab_2_1-1.0-SNAPSHOT/admin/");
     }
 }

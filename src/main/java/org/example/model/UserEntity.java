@@ -11,11 +11,10 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "user", schema = "my_project")
+@Table(name = "user")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,13 +42,9 @@ public class UserEntity {
     private String city;
     @Column
     private Date birthday;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<SessionEntity> sessions;
 
-//    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-//    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-//    @Enumerated(EnumType.STRING)
-//    private Set<Role> roles;
 
     public UserEntity(String log, String password, String name, String surname, String telephone, String eMail) {
         this.log = log;

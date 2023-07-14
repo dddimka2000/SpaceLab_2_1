@@ -2,8 +2,12 @@ package org.example.service;
 
 import org.example.model.NewsEntity;
 import org.example.model.StockEntity;
+import org.example.model.UserEntity;
 import org.example.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,6 +40,17 @@ public class NewsService {
 
     public void delete(NewsEntity entity) {
         newsRepository.delete(entity);
+    }
+
+    public Page<NewsEntity> findAllPage(Integer pageNumber, Integer pageSize){
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return newsRepository.findAll(pageable);
+
+    }
+    public Page<NewsEntity> findAllPageByStatus(Boolean bool,Integer pageNumber, Integer pageSize){
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return newsRepository.findByStatus(bool, pageable);
+
     }
 
 

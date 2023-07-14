@@ -42,41 +42,43 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item"
-                                           th:href="@{/О кинотеатре}">
-                                        О кинотеатре
+                                           th:href="@{/pages/{name}(name=${otherPages.get(0).name})}"
+                                           th:text="${otherPages.get(0).name}">
                                     </a>
                                     </li>
                                     <li><a class="dropdown-item"
-                                           th:href="@{/news}">
+                                           th:href="@{/pages/news}">
                                         Новости
                                     </a>
                                     </li>
                                     <li><a class="dropdown-item"
-                                           th:href="@{/Кафе - Бар}">
-                                        Кафе - Бар
+                                           th:href="@{/pages/{name}(name=${otherPages.get(1).name})}"
+                                           th:text="${otherPages.get(1).name}">
                                     </a>
                                     </li>
                                     <li th:each="us,i:${otherPages}">
                                         <div th:if="${i.index!=0&&i.index!=1}">
                                             <a class="dropdown-item"
-                                               th:href="@{/{name}(name=${us.name})}"
+                                               th:href="@{/pages/{name}(name=${us.name})}"
                                                th:text="${us.name}">
                                             </a>
                                         </div>
                                     </li>
                                     <li><a class="dropdown-item"
-                                           th:href="@{/mobileApplications}">
+                                           th:href="@{/pages/mobileApplications}">
                                         Мобильные приложения
                                     </a>
                                     <li>
-                                        <a class="dropdown-item"
-                                           th:href="@{/{name}(name=${contactsPage.namePage})}"
-                                           th:text="${contactsPage.namePage}">
-                                        </a>
+                                        <div th:if="${contactsPage.getStatus()==true}">
+                                            <a class="dropdown-item"
+                                               th:href="@{/pages/{name}(name=${contactsPage.namePage})}"
+                                               th:text="${contactsPage.namePage}">
+                                            </a>
+                                        </div>
                                     </li>
                                     <li th:each="page:${newPages}">
                                         <a class="dropdown-item"
-                                           th:href="@{/{name}(name=${page.name})}"
+                                           th:href="@{/pages/{name}(name=${page.name})}"
                                            th:text="${page.name}">
                                         </a>
                                     </li>

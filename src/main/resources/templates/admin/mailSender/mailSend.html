@@ -20,13 +20,54 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
+    <div th:insert="public/blocks/entryPanel :: entryPanel"></div>
     <div th:insert="admin/blocks/sidebarMenu :: sidebarMenu"></div>
     <div class="content-wrapper">
+        <div class="container-fluid">
+            <br>
+            <div class="card">
+                <h1 style="text-align: center">Sms (Заглушка)</h1>
+                <div class="row" style="padding-left: 30px">
+                    <div class="col-3">
+                        <label>Выбрать кому слать</label>
+                    </div>
+                    <div class="col-3">
+                        <input type="radio">
+                        <label>Все пользователи</label>
+                    </div>
+                    <div class="col-3">
+                        <input type="radio">
+                        <label>Выборочно</label>
+                    </div>
+                    <div class="col-3">
+                        <a class="note-style" style="position: center">Выбрать
+                            пользователей</a>
+                    </div>
+                </div>
+                <br>
+                <div class="row" style="padding-left: 30px">
+                    <div class="col-6">
+                        <label>Text Sms</label>
+                        <br>
+                        <textarea style="height: 300px; width: 90%;text-align: center"></textarea>
+                    </div>
+                    <div class="col-6">
+                        <label>Кол-во писем: </label>
+                        <br>
+                        <label>Рассылка выполнена на: </label>
+                    </div>
+                </div>
+                <br>
+                <div style="text-align: center;">
+                    <button class="dropdown-style cent">Начать рассылку</button>
+                </div>
+                <br>
+            </div>
+        </div>
         <br>
-        <img th:src="@{/photos/Screenshot_6.png}" width="100%">
-        <br>
-        <div class="card" id="EmailCard">
+        <div class="container-fluid">
             <form enctype="multipart/form-data" method="post" th:action="@{/admin/mailSender/send}" name="formEmail">
+                <div class="card" id="EmailCard">
                 <h1 style="text-align: center">E-mail</h1>
                 <div class="row" style="padding-left: 30px">
                     <div class="col-3">
@@ -51,13 +92,15 @@
                         <label>Загрузить HTML-письмо </label>
                         <input type="file" name="htmlLetter">
                         <br>
-                        <label>Загружен файл: </label>
-                        <a th:href="${distributionEntities.get(distributionEntities.size()-1).path}">
-                            <label th:text="${distributionEntities.get(distributionEntities.size()-1).name}"></label>
-                        </a>
+                        <div th:if="${distributionEntities.size()>0}">
+                            <label>Загружен файл: </label>
+                            <a th:href="@{${distributionEntities.get(distributionEntities.size()-1).path}}">
+                                <label th:text="${distributionEntities.get(distributionEntities.size()-1).name}"></label>
+                            </a>
+                        </div>
                         <br>
-                        <label>Шаблон используемый в текущей рассылке: </label>
-                        <label id="template_used">?????</label>
+                        <!--                        <label>Шаблон используемый в текущей рассылке: </label>-->
+                        <!--                        <label id="template_used">?????</label>-->
                         <br>
                         <div class="row">
                             <div class="col-5">
@@ -73,33 +116,40 @@
                     </div>
                     <div class="col-5">
                         <div class="card" style="text-align: center">
-                            <label>Список последних загруженных шаблонов</label>
-                            <div th:each="us:${distributionEntities}">
-                                <input type="radio" name="checkbox_distributionEntities" th:value="${us.id}">
-                                <a th:href="${us.path}">
-                                    <label th:text="${us.name}"></label>
-                                </a>
-                                <button name="deleteItem" th:value="${us.id}">Удалить</button>
+                            <div th:if="${distributionEntities.size()>0}">
+                                <label>Список последних загруженных шаблонов</label>
+                                <div th:each="us:${distributionEntities}">
+                                    <input type="radio" name="checkbox_distributionEntities" th:value="${us.id}">
+                                    <a th:href="@{${us.path}}">
+                                        <label th:text="${us.name}"></label>
+                                    </a>
+                                    <button name="deleteItem" th:value="${us.id}">Удалить</button>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                     <div class="col-1"></div>
                 </div>
 
                 <br>
+
                 <div style="text-align: center;">
                     <button type="submit" class="dropdown-style cent" id="sendButton">Начать рассылку</button>
+                </div>
+                    <br>
                 </div>
             </form>
         </div>
     </div>
+</div>
 </div>
 </body>
 <script>
     $(document).ready(function () {
         $("#sendButton").click(function () {
             $.ajax({
-                url: "/admin/mailSender/send",
+                url: "/SpaceLab_2_1-1.0-SNAPSHOT/admin/mailSender/send",
                 type: "POST",
                 success: function () {
                     updateEmailsCount();
@@ -110,14 +160,15 @@
 
         function updateEmailsCount() {
             $.ajax({
-                url: "/admin/mailSender/getPercents",
+                url: "/SpaceLab_2_1-1.0-SNAPSHOT/admin/mailSender/getPercents",
                 type: "GET",
                 success: function (count) {
                     $("#percents").text(count);
                 }
             });
         }
-            setInterval(updateEmailsCount, 100);
+
+        setInterval(updateEmailsCount, 100);
 
     });
 

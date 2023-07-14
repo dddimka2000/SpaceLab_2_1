@@ -13,18 +13,20 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
+<div th:insert="public/blocks/entryPanel :: entryPanel" style="padding-top:10px"></div>
+
 <div style="text-align: center">
     <div th:insert="public/blocks/search :: search" style="padding-top: 20px;"></div>
     <div th:insert="public/blocks/navigate :: navigate"></div>
     <br><br>
 
-    <iframe width="560" height="315" th:src="${info.linkTrailer}" frameborder="0" allowfullscreen=""></iframe>
+    <iframe width="560" height="315" th:src="@{${info.linkTrailer}}" frameborder="0" allowfullscreen=""></iframe>
     <br>
     <br>
 
     <div class="row">
         <div class="col-5">
-            <img th:src="${info.img}" height="385.9293286219081" width="526.8520577192079">
+            <img th:src="@{${info.img}}" height="385.9293286219081" width="526.8520577192079">
         </div>
         <div class="col-7">
             <button type="button" class="btn btn-outline-dark"
@@ -40,7 +42,7 @@
     <br>
     <div class="row">
         <div class="col-5">
-            <img src="/photos/iIfXiui6.png">
+            <img th:src="@{/photos/iIfXiui6.png}">
         </div>
         <div class="col-7">
             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" height="327"
@@ -49,12 +51,12 @@
                     <div th:each="us,i:${carouselItems}">
                         <div th:if="${i.index==0}">
                             <div class="carousel-item active">
-                                <img th:src="${us}" class="d-block w-100" style="height: 600px">
+                                <img th:src="@{${us}}" class="d-block w-100" style="height: 600px">
                             </div>
                         </div>
                         <div th:unless="${i.index==0}">
                             <div class="carousel-item">
-                                <img th:src="${us}"
+                                <img th:src="@{${us}}"
                                      class="d-block w-100" style="height: 600px">
                             </div>
                         </div>

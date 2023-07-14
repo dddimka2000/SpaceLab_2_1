@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <style>
+        /* Стили для отображения ошибки */
+        body {
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 24px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #888;
+            margin-bottom: 24px;
+        }
+    </style>
+</head>
+<body>
+<img src="https://multiplex.ua/img/logo.svg" alt="Multiplex" title="Multiplex">
+
+<h1>Error</h1>
+<p th:text="${error}"></p>
+</body>
+</html>

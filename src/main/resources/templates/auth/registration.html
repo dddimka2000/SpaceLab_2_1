@@ -10,7 +10,7 @@
 <body class="text-center">
 <img src="https://multiplex.ua/img/logo.svg" alt="Multiplex" title="Multiplex">
 <main class="form-signin w-100 m-auto">
-    <form class="d-flex flex-column align-items-center" th:action="@{/registration}" method="post">
+    <form class="d-flex flex-column align-items-center" th:action="@{/auth/registration}" method="post">
         <div class="mb-3 me-3 bd-mode-toggle">
             <div class="mb-2 me-2 bd-mode-toggle">
                 <h1 class="h3 mb-3 fw-normal">Registration</h1>
@@ -50,7 +50,7 @@
 
 
         </div>
-        <a href="/login"><p class="mt-5 mb-3 text-body-secondary">login</p></a></div>
+        <a th:href="@{/auth/login}"><p class="mt-5 mb-3 text-body-secondary">login</p></a></div>
     </form>
 </main>
 </body>

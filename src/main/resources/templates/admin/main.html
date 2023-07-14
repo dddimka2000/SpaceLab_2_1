@@ -26,17 +26,15 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-
     <!-- Main Sidebar Container -->
+    <div th:insert="public/blocks/entryPanel :: entryPanel"></div>
     <div th:insert="admin/blocks/sidebarMenu :: sidebarMenu"></div>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <h1 class="m-0">Dashboard</h1>
-
         </div>
-
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -64,7 +62,7 @@
                 <br>
                 <div class="row">
                     <div class="col-lg-6">
-                        <img src="/photos/Scree.png">
+                        <img th:src="@{/photos/Scree.png}">
                     </div>
                     <div class="col-lg-6">
                         <h1>Пол</h1>
@@ -98,7 +96,7 @@
 
 
     function updateSessions() {
-        fetch("/admin/getSessions")
+        fetch("/SpaceLab_2_1-1.0-SNAPSHOT/admin/getSessions")
             .then(response => response.json())
             .then(data => {
                 console.log(data);

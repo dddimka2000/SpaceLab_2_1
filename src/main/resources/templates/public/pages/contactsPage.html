@@ -13,6 +13,8 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
+<div th:insert="public/blocks/entryPanel :: entryPanel" style="padding-top:10px"></div>
+
 <div style="text-align: center">
     <div th:insert="public/blocks/search :: search" style="padding-top: 20px;"></div>
     <div th:insert="public/blocks/navigate :: navigate"></div>
@@ -28,7 +30,7 @@
             <div class="col-4">
                 <div style="display: flex">
                     <h1 th:text="${us.name}" style="font-size: 40px;"></h1>
-                    <img th:src="${us.logo}" height="89" width="140" style="float: right">
+                    <img th:src="@{${us.logo}}" height="89" width="140" style="float: right">
                 </div>
                 <g transform="matrix(1 0 0 1 84 698)" class="stencil" style=" float: right; padding-top: 20px">
                     <svg name="image" width="345" height="251" x="0" y="0" class="" style="opacity: 1;">
@@ -58,7 +60,7 @@
                         height="450"
                         frameborder="0"
                         style="border:0"
-                        th:src="${us.mapCoordinates}"
+                        th:src="@{${us.mapCoordinates}}"
                         allowfullscreen>
                 </iframe>
             </div>

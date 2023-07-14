@@ -18,11 +18,11 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-
+    <div th:insert="public/blocks/entryPanel :: entryPanel"></div>
     <div th:insert="admin/blocks/sidebarMenu :: sidebarMenu"></div>
     <div class="content-wrapper">
         <section class="content mx-auto" style=" width: 1000px;">
-            <form id="edit-publicMain-form" method="post" action="/admin/news/createNews"
+            <form id="edit-publicMain-form" method="post" th:action="@{/admin/news/createNews}"
                   enctype="multipart/form-data">
                 <div class="form-group" style="text-align: right; padding-left: 33%; padding-top: 30px">
                         <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success" >

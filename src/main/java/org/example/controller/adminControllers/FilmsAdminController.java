@@ -3,6 +3,7 @@ package org.example.controller.adminControllers;
 import lombok.extern.log4j.Log4j2;
 import org.example.model.FilmEntity;
 import org.example.service.FilmService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -20,7 +22,10 @@ import java.util.UUID;
 @Log4j2
 @RequestMapping("/admin/films")
 public class FilmsAdminController {
-    String path = "C:\\Users\\User\\IdeaProjects\\SpaceLab_2_1\\src\\main\\resources\\static\\img\\";
+    @Value("${spring.regex}")
+    String regex;
+    @Value("${spring.pathImg}")
+    String path;
     private final
     FilmService filmService;
 
@@ -83,7 +88,7 @@ public class FilmsAdminController {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            String mainImaginePath = "/photos/" + resultFilename;
+            String mainImaginePath = regex + resultFilename;
 
 
             filmEntity.setImg(mainImaginePath);
@@ -101,7 +106,7 @@ public class FilmsAdminController {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                img = "/photos/" + resultFilename;
+                img = regex + resultFilename;
                 setImgMethod = filmEntity.getClass().getMethod("setImg" + setImgNum, String.class);
                 setImgMethod.invoke(filmEntity, img);
             }
@@ -147,7 +152,7 @@ public class FilmsAdminController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        String mainImaginePath = "/photos/" + resultFilename;
+        String mainImaginePath = regex + resultFilename;
 
         filmEntity.setImg(mainImaginePath);
 
@@ -163,7 +168,7 @@ public class FilmsAdminController {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                img = "/photos/" + resultFilename;
+                img = regex + resultFilename;
                 setImgMethod = filmEntity.getClass().getMethod("setImg" + setImgNum, String.class);
                 setImgMethod.invoke(filmEntity, img);
             }
