@@ -22,7 +22,7 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: Copy artifacts
-      run: cp target/my-application.jar ${{ github.workspace }}/artifacts/my-application.jar
+      run: cp target/my-application.jar ${{ github.workspace }}/artifacts/SpaceLab_2_1.jar
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
       with:
