@@ -3,7 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/org/example/config" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/org/example/config/DataSourceConfig.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/java/org/example/config/DataSourceConfig.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/org/example/security/UserDetailsImpl.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources/adminPanel/.babelrc.js" charset="windows-1251" />
