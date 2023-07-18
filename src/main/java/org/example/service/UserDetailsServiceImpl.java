@@ -26,52 +26,60 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     final
     SessionRepository sessionRepository;
     private final UserRepository userRepository;
+
     @Autowired
     public UserDetailsServiceImpl(UserRepository userRepository, SessionRepository sessionRepository) {
         this.userRepository = userRepository;
         this.sessionRepository = sessionRepository;
     }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if (username == null || username.isEmpty()) {
             log.error("Log empty!");
         }
-        System.out.println(username);
         Optional<UserEntity> userEntity = userRepository.findFirstByLog(username);
-        System.out.println(userEntity);
-        if (userEntity.isEmpty())
-            throw new UsernameNotFoundException("User not found!");
+        if (userEntity.isEmpty()){
+            throw new UsernameNotFoundException("User hasn't been found!");}
+        else{
+            log.info(username + " has been found");}
 
-
-        return new UserDetailsImpl (userEntity.get());
+        return new UserDetailsImpl(userEntity.get());
     }
 
-    public Optional<UserEntity> findById(Integer integer){
+    public Optional<UserEntity> findById(Integer integer) {
+        log.info("User with id" + integer + " has been found");
         return userRepository.findById(integer);
     }
 
-    public void delete(Integer integer){
+    public void delete(Integer integer) {
         UserEntity user = userRepository.findById(integer).orElseThrow();
         List<SessionEntity> sessions = user.getSessions();
-        sessions.stream().forEach(session->sessionRepository.delete(session));
+        sessions.stream().forEach(session -> sessionRepository.delete(session));
+        log.info("User with id" + integer + " has been removed");
         userRepository.deleteById(integer);
     }
-    public Optional<UserEntity> findByLog(String login){
+
+    public Optional<UserEntity> findByLog(String login) {
+        log.info("User with " + login + " was found");
         return userRepository.findFirstByLog(login);
     }
 
-    public Page<UserEntity> findAllPage(Integer pageNumber, Integer pageSize){
+    public Page<UserEntity> findAllPage(Integer pageNumber, Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        log.info("Users with " + pageNumber + " has been found");
         return userRepository.findAll(pageable);
 
     }
 
     @Transactional
-    public void save(UserEntity userEntity){
+    public void save(UserEntity userEntity) {
         userRepository.save(userEntity);
-        log.info(userEntity);
+        log.info(userEntity + " has been saved");
     }
-    public List<UserEntity> findAll(){
+
+    public List<UserEntity> findAll() {
+        log.info("All users have been found");
         return userRepository.findAll();
     }
 }

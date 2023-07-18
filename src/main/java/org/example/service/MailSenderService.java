@@ -1,5 +1,6 @@
 package org.example.service;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -10,13 +11,13 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-
+@Log4j2
 @Service
 public class MailSenderService {
-    final
+    private final
     JavaMailSender javaMailSender;
     @Value("${spring.mail.username}")
-    String usernameMail;
+    private String usernameMail;
 
     @Autowired
     public MailSenderService(JavaMailSender javaMailSender) {
@@ -24,10 +25,7 @@ public class MailSenderService {
     }
     @Async
     public void sendSimpleMail(String mail, String subject, String htmlContent) {
-
-
         MimeMessage message = javaMailSender.createMimeMessage();
-
         MimeMessageHelper helper = null;
         try {
             helper = new MimeMessageHelper(message, true);
@@ -35,10 +33,21 @@ public class MailSenderService {
             helper.setTo(mail);
             helper.setSubject(subject);
             helper.setText(htmlContent, true);
+            log.info(mail+" was successful");
         } catch (MessagingException e) {
+            log.error(mail+" sending failed");
             throw new RuntimeException(e);
         }
         javaMailSender.send(message);
-
     }
+
+    public void setUsernameMail(String usernameMail) {
+        this.usernameMail = usernameMail;
+    }
+
+    public String getUsernameMail() {
+        return usernameMail;
+    }
+
+
 }
